@@ -7,14 +7,15 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.Timer;
 
+import com.github.gangz.tetris.controller.CommandReciever;
 import com.github.gangz.tetris.controller.GameController;
 
 public class ActiveBoard extends Board implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	Timer timer;
-	GameController controller;
+	CommandReciever controller;
 	
-	public ActiveBoard(GameController controller, int width, int height) {
+	public ActiveBoard(CommandReciever controller, int width, int height) {
 		super(width,height);
 		setFocusable(true);
 		this.controller = controller;
@@ -29,9 +30,9 @@ public class ActiveBoard extends Board implements ActionListener {
 	}
 	
 	class TAdapter extends KeyAdapter {
-		GameController controller;
+		CommandReciever controller;
 
-		TAdapter(GameController vm) {
+		TAdapter(CommandReciever vm) {
 			this.controller = vm;
 		}
 

@@ -20,7 +20,7 @@ public class Shape {
 		shape.add(cell);
 	}
 	
-	public int eleminate(int width_in_y) {
+	public int eliminate(int width_in_y) {
 		HashMap<Integer, Integer> rowCounts;
 		rowCounts = countAllRows(shape);
         int removedRowsCount = 0;

@@ -7,6 +7,6 @@ public interface GameUI {
 	void updateScore();
 	void updateSpeed();
 	void notifyGameOver();
-	void connect(GameController gameController);
-	void refresh(List<ShapePlacement> mainShapes);
+	void connect(CommandReciever gameController);
+	void refresh(List<Block> mainShapes);
 }

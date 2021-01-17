@@ -2,34 +2,32 @@ package com.github.gangz.tetris;
 
 import static org.junit.Assert.assertEquals;
 
+import com.github.gangz.tetris.controller.Block;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
 
 import com.github.gangz.tetris.controller.Shape;
-import com.github.gangz.tetris.controller.ShapePlacement;
 import com.github.gangz.tetris.shapes.ShapeFactory;
 
 public class TestShapeJoin {
 		ShapeFactory shapeFactory;
 		Shape bar;
-		ShapePlacement shapePlacement;
+		Block block;
 		@Before
 		public void setup(){
 			shapeFactory  = new ShapeFactory();
-			bar = shapeFactory.make(ShapeFactory.TYPE_BAR);
-			shapePlacement = new ShapePlacement(0,0);
-			shapePlacement.put(bar);
+			bar = shapeFactory.make(ShapeFactory.I);
+			block = new Block(0,0);
+			block.put(bar);
 		}
 
 		@Test
 		public void join_two_shape(){
-		Shape anotherBar = shapeFactory.make(ShapeFactory.TYPE_BAR);
-		ShapePlacement anotherShapePlacement = new ShapePlacement(0,4);
-		anotherShapePlacement.put(anotherBar);
-		shapePlacement.join(anotherShapePlacement);
-		assertEquals(8,shapePlacement.size());
-		assertEquals(4,shapePlacement.getAt(4).y);
+		Shape anotherBar = shapeFactory.make(ShapeFactory.I);
+		Block anotherBlock = new Block(0,4);
+		anotherBlock.put(anotherBar);
+		block.join(anotherBlock);
+		assertEquals(8, block.size());
+		assertEquals(4, block.getAt(4).y);
 	}
 }

@@ -1,10 +1,10 @@
 package com.github.gangz.tetris.controller;
 
-public class ShapePlacement {
+public class Block {
 	Shape shape;
 	public int x;
 	public int y;
-	public ShapePlacement(int x, int y) {
+	public Block(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -39,7 +39,7 @@ public class ShapePlacement {
 		
 	}
 
-	public void join(ShapePlacement rhs) {
+	public void join(Block rhs) {
 		 for (int i=0;i<rhs.size();i++){
              Cell c = rhs.getAt(i);
              Cell newCell = new Cell(c.x-x,c.y-y);
@@ -47,8 +47,8 @@ public class ShapePlacement {
 		 }
 	}
 
-	public void eleminate(int max_width) {
-		shape.eleminate(max_width);
+	public void eliminate(int max_width) {
+		shape.eliminate(max_width);
 	}
 
 	public void rotate() {

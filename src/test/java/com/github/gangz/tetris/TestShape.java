@@ -12,8 +12,8 @@ public class TestShape {
 	@Test
 	public void eleminate_a_whole_row(){
 		ShapeFactory factory = new ShapeFactory();
-		Shape shape = factory.make(ShapeFactory.TYPE_BAR);
-		int rows = shape.eleminate(4);
+		Shape shape = factory.make(ShapeFactory.I);
+		int rows = shape.eliminate(4);
 		assertEquals(1,rows);
 		assertEquals(0,shape.size());
 	}
@@ -26,7 +26,7 @@ public class TestShape {
 		shape.add(new Cell(1,0));
 		shape.add(new Cell(1,1));
 
-		int rows = shape.eleminate(2);
+		int rows = shape.eliminate(2);
 		assertEquals(1,rows);
 		assertEquals(1,shape.size());
 		assertEquals(0,shape.getAt(0).x);

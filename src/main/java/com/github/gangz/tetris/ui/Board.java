@@ -8,8 +8,8 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+import com.github.gangz.tetris.controller.Block;
 import com.github.gangz.tetris.controller.Cell;
-import com.github.gangz.tetris.controller.ShapePlacement;
 
 public class Board extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +18,7 @@ public class Board extends JPanel {
 	Color colors[] = { new Color(204, 102, 102), new Color(102, 204, 102),
 			new Color(102, 102, 204), new Color(204, 204, 102), new Color(204, 102, 204), new Color(102, 204, 204),
 			new Color(218, 170, 0) };
-	private List<ShapePlacement> shapes;
+	private List<Block> shapes;
 
 	public Board(int width, int height) {
 		setBackground(Color.BLACK);
@@ -41,7 +41,7 @@ public class Board extends JPanel {
 		Dimension size = getSize();
 		int boardTop = (int) size.getHeight() - height * squareHeight();
 		if (shapes==null) return;
-		for (ShapePlacement shape:shapes) {
+		for (Block shape:shapes) {
 			for (int i=0;i<shape.size();i++) {
 				Cell cell = shape.getAt(i);
 				int index = new Random().nextInt(colors.length);
@@ -65,7 +65,7 @@ public class Board extends JPanel {
 		g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1);
 	}
 
-	public void setShapes(List<ShapePlacement> shapes) {
+	public void setShapes(List<Block> shapes) {
 		this.shapes = shapes;
 	}
 

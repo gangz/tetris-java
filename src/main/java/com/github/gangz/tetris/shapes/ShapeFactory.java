@@ -5,31 +5,31 @@ import com.github.gangz.tetris.controller.Shape;
 
 public class ShapeFactory {
 
-	public static final int TYPE_BAR = 0;
-	public static final int TYPE_SQUARE = 1;
-	public static final int TYPE_T = 2;
-	public static final int TYPE_INV_Z = 3;
-	public static final int TYPE_INV_L = 4;
-	public static final int TYPE_Z = 5;
-	public static final int TYPE_L = 6;
-	public static final int TYPE_NULL = 7;
+	public static final int I = 0;
+	public static final int O = 1;
+	public static final int T = 2;
+	public static final int S = 3;
+	public static final int J = 4;
+	public static final int Z = 5;
+	public static final int L = 6;
+	public static final int NULL = 7;
 
 	public Shape make(int type) {
 		switch (type)
 		{
-		case TYPE_BAR:
-			return new ShapeBar();
-		case TYPE_SQUARE:
-			return new ShapeSquare();
-		case TYPE_L:
+		case I:
+			return new ShapeI();
+		case O:
+			return new ShapeO();
+		case L:
 			return new ShapeL();
-		case TYPE_INV_L:
-			return new ShapeInvL();
-		case TYPE_Z:
+		case J:
+			return new ShapeJ();
+		case Z:
 			return new ShapeZ();
-		case TYPE_INV_Z:
-			return new ShapeInvZ();
-		case TYPE_T:
+		case S:
+			return new ShapeS();
+		case T:
 			return new ShapeT();
 		}
 		return new Shape();

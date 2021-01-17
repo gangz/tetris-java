@@ -2,7 +2,6 @@ package com.github.gangz.tetris;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import com.github.gangz.tetris.controller.Cell;
 import com.github.gangz.tetris.controller.Shape;
@@ -11,7 +10,7 @@ public class TestShapeFactory {
 	@Test
 	public void can_produce_a_bar(){
         ShapeFactory factory = new ShapeFactory();
-        Shape shape = factory.make(ShapeFactory.TYPE_BAR);
+        Shape shape = factory.make(ShapeFactory.I);
         assertEquals(4,shape.size());
         for(int i=0;i<4;i++){
                 Cell c = shape.getAt(i);
@@ -23,7 +22,7 @@ public class TestShapeFactory {
 	@Test
 	public void can_produce_a_square(){
         ShapeFactory factory = new ShapeFactory();
-        Shape shape = factory.make(ShapeFactory.TYPE_SQUARE);
+        Shape shape = factory.make(ShapeFactory.O);
         assertEquals(4,shape.size());
 
         assertEquals(0,shape.getAt(0).x);

@@ -19,16 +19,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import com.github.gangz.tetris.controller.Block;
+import com.github.gangz.tetris.controller.CommandReciever;
 import com.github.gangz.tetris.controller.GameController;
 import com.github.gangz.tetris.controller.GameUI;
-import com.github.gangz.tetris.controller.ShapePlacement;
 
 
-public class SwingTetrisUI extends JFrame implements GameUI {
+public class SwingUI extends JFrame implements GameUI {
 	private static final int WINDOW_HEIGHT = 400;
 	private static final int WINDOW_WIDTH = 200;
 	private static final long serialVersionUID = -5339939426923342316L;
-	public SwingTetrisUI() {
+	public SwingUI() {
 	}
 	public void displayUI() {
 		this.setLocationRelativeTo(null);
@@ -41,7 +42,7 @@ public class SwingTetrisUI extends JFrame implements GameUI {
 		int confirmed =  JOptionPane.showConfirmDialog(null, "Game is over, do you want to play a new one?",
 				"Game Over", JOptionPane.YES_NO_OPTION);
 		if (confirmed == JOptionPane.YES_OPTION) {
-			controller.play();
+			commandReciever.start();
 		} else {
 		}
 	}
@@ -50,7 +51,7 @@ public class SwingTetrisUI extends JFrame implements GameUI {
     Board previewBoard;
     JLabel score;
     JButton startPauseStop;
-	private GameController controller;
+	private CommandReciever commandReciever;
     
 	public void init() {
 		setSize(WINDOW_WIDTH*2, WINDOW_HEIGHT);
@@ -58,7 +59,7 @@ public class SwingTetrisUI extends JFrame implements GameUI {
 	   
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
-        mainBoard = new ActiveBoard(controller,8,20);
+        mainBoard = new ActiveBoard(commandReciever,8,20);
         previewBoard = new Board(4,4);
         this.add(mainBoard);
         this.add(previewBoard);
@@ -114,15 +115,12 @@ public class SwingTetrisUI extends JFrame implements GameUI {
 		startPauseStop.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.play();
+				commandReciever.start();
 				startPauseStop.setFocusable(false);
 			}
 		});
 	}
 
-	public void setController(GameController controller) {
-		this.controller = controller;
-	}
 	@Override
 	public void updateNextShape() {
 		
@@ -136,13 +134,13 @@ public class SwingTetrisUI extends JFrame implements GameUI {
 		
 	}
 	@Override
-	public void connect(GameController gameController) {
-		this.controller = gameController;
+	public void connect(CommandReciever commandReciever) {
+		this.commandReciever = commandReciever;
 		init();
 	}
 	
 	@Override
-	public void refresh(List<ShapePlacement> mainShapes) {
+	public void refresh(List<Block> mainShapes) {
 		mainBoard.setShapes(mainShapes);
 		mainBoard.repaint();
 	}

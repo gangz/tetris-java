@@ -6,17 +6,21 @@ import java.util.Random;
 
 import com.github.gangz.tetris.shapes.ShapeFactory;
 
-public class GameController {
+public class GameController implements CommandReciever{
 	private GameUI output;
 	private CollisionDetector collisionDetector;
-	ShapePlacement activeShapePlacement;
-	ShapePlacement borderShapePlacement;
-	ShapePlacement existedBlockPlacement;
+	Block activeBlock;
+	Block borderBlock;
+	Block existedBlock;
 	
 	boolean isRunning;
 	public static final int MOVE_LEFT = 0;
 	public static final int MOVE_RIGHT = 1;
 	public static final int MOVE_DOWN = 2;
+	public GameController(GameUI gameUI){
+		this(gameUI,new CollisionDetector());
+	}
+
 	public GameController(GameUI gameUI, CollisionDetector collisionDetector){
 		//Link ui and controller bi-direction
 		gameUI.connect(this);
@@ -32,26 +36,21 @@ public class GameController {
 	 * prevent the shape go out of the wall.
 	 */
 	private void createWall() {
-		borderShapePlacement = new ShapePlacement(-1,-1);
+		borderBlock = new Block(-1,-1);
         ShapeFactory shapeFactory = new ShapeFactory();
-        borderShapePlacement.put(shapeFactory.makeWall(22,10));
+        borderBlock.put(shapeFactory.makeWall(22,10));
 	}
 	
-	/**
-	 * Start game
-	 * - if it is already started, it is no effect
-	 * - a shape will appear in top of window
-	 * - existed block is clean
-	 * - notify external ui to update the shape;
-	 */
-	public void play()
+
+	@Override
+	public void start()
 	{
 		if (isRunning) return;
  		isRunning = true;
-		activeShapePlacement = new ShapePlacement(0, 0);
+		activeBlock = new Block(0, 0);
 		createShape();
-        existedBlockPlacement = new ShapePlacement(0,0); 
-        existedBlockPlacement.put(new Shape());
+        existedBlock = new Block(0,0);
+        existedBlock.put(new Shape());
         refresh();
 	}
 
@@ -63,33 +62,34 @@ public class GameController {
 	 * if the game's existed shape already reach top of window, the game is over.
 	 * a new shape will be created and appear on top of window
 	 */
+	@Override
 	public void moveDown() {
 		if (!isRunning) return;
-		if (collisionDetector.isCollision(activeShapePlacement, borderShapePlacement, MOVE_DOWN)||
-			collisionDetector.isCollision(activeShapePlacement, existedBlockPlacement, MOVE_DOWN)){
+		if (collisionDetector.isCollision(activeBlock, borderBlock, MOVE_DOWN)||
+			collisionDetector.isCollision(activeBlock, existedBlock, MOVE_DOWN)){
 			
-			existedBlockPlacement.join(activeShapePlacement);
-			existedBlockPlacement.eleminate(8);
+			existedBlock.join(activeBlock);
+			existedBlock.eliminate(8);
 			fallDownExistedShapePlacement();
-			activeShapePlacement = new ShapePlacement(0, 0);
+			activeBlock = new Block(0, 0);
 			createShape();
 			refresh();
 			checkGameOver();
 			return;
 		}
-		activeShapePlacement.moveDown();
+		activeBlock.moveDown();
 		refresh();
 	}
 
 	private void fallDownExistedShapePlacement() {
-		if (existedBlockPlacement.size()==0) return;
-        while(!collisionDetector.isCollision(existedBlockPlacement,borderShapePlacement,MOVE_DOWN))
-                existedBlockPlacement.moveDown();
+		if (existedBlock.size()==0) return;
+        while(!collisionDetector.isCollision(existedBlock, borderBlock,MOVE_DOWN))
+                existedBlock.moveDown();
 	}
 
 	private boolean checkGameOver() {
-		if (existedBlockPlacement.size()==0) return false;
-		Cell c =existedBlockPlacement.getAt(existedBlockPlacement.size()-1);
+		if (existedBlock.size()==0) return false;
+		Cell c = existedBlock.getAt(existedBlock.size()-1);
         if (c.x == 0){
                 output.notifyGameOver();
                 isRunning=false;
@@ -100,48 +100,52 @@ public class GameController {
 
 	private void createShape() {
         ShapeFactory shapeFactory = new ShapeFactory();
-        Shape activeShape = shapeFactory.make(new Random().nextInt(ShapeFactory.TYPE_NULL));
-        activeShapePlacement.put(activeShape);
+        Shape activeShape = shapeFactory.make(new Random().nextInt(ShapeFactory.NULL));
+        activeBlock.put(activeShape);
 	}
 
+	@Override
 	public void rotate() {
 		if (!isRunning) return;
-		activeShapePlacement.rotate();
+		activeBlock.rotate();
 		refresh();
 
 	}
-
+	@Override
 	public void moveRight() {
 		if (!isRunning) return;
-		if (collisionDetector.isCollision(activeShapePlacement, borderShapePlacement, MOVE_RIGHT)||
-			collisionDetector.isCollision(activeShapePlacement, existedBlockPlacement, MOVE_RIGHT))
+		if (collisionDetector.isCollision(activeBlock, borderBlock, MOVE_RIGHT)||
+			collisionDetector.isCollision(activeBlock, existedBlock, MOVE_RIGHT))
 			return;		
-		activeShapePlacement.moveRight();
+		activeBlock.moveRight();
 		refresh();
 
 	}
 
+	@Override
 	public void moveLeft() {
 		if (!isRunning) return;
-		if (collisionDetector.isCollision(activeShapePlacement, borderShapePlacement, MOVE_LEFT)||
-			collisionDetector.isCollision(activeShapePlacement, existedBlockPlacement, MOVE_LEFT))
+		if (collisionDetector.isCollision(activeBlock, borderBlock, MOVE_LEFT)||
+			collisionDetector.isCollision(activeBlock, existedBlock, MOVE_LEFT))
 			return;		
-		activeShapePlacement.moveLeft();
+		activeBlock.moveLeft();
 		refresh();
 	}
 
+	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	public void refresh() {
-		List<ShapePlacement> mainShapes = new ArrayList<>();
-		mainShapes.add(activeShapePlacement);
-        mainShapes.add(existedBlockPlacement);
+		List<Block> mainShapes = new ArrayList<>();
+		mainShapes.add(activeBlock);
+        mainShapes.add(existedBlock);
 		this.output.refresh(mainShapes);
 	}
-	
+
+	@Override
 	public void tick() {
 		moveDown();
 	}

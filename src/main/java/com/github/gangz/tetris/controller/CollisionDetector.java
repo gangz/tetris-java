@@ -2,8 +2,8 @@ package com.github.gangz.tetris.controller;
 
 public class CollisionDetector {
 
-	public boolean isCollision(ShapePlacement moveObj,
-			ShapePlacement stillObj, Integer direction) {
+	public boolean isCollision(Block moveObj,
+                               Block stillObj, Integer direction) {
 
         int offset[][]={{0,-1},{0,1},{1,0}};
         int index = direction-GameController.MOVE_LEFT;

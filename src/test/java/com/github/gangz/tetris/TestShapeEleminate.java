@@ -4,11 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
 
 import com.github.gangz.tetris.controller.Shape;
-import com.github.gangz.tetris.controller.ShapePlacement;
+import com.github.gangz.tetris.controller.Block;
 import com.github.gangz.tetris.shapes.ShapeFactory;
 
 public class TestShapeEleminate {
@@ -17,36 +15,36 @@ public class TestShapeEleminate {
         @Before
         public void setup(){
         	shapeFactory = new ShapeFactory();
-        	shape = shapeFactory.make(ShapeFactory.TYPE_BAR);
+        	shape = shapeFactory.make(ShapeFactory.I);
         }
         
         @Test
         public void eleminate_a_whole_row(){
-            int eleminatedRows = shape.eleminate(4);
+            int eleminatedRows = shape.eliminate(4);
             assertEquals(1,eleminatedRows);
             assertEquals(0,shape.size());
         }
         
         @Test
         public void eleminate_should_compress_full_blank_rows(){
-        	ShapePlacement shapePlacement_main = new ShapePlacement(0,0);
-        	shapePlacement_main.put(shape);
+        	Block block_main = new Block(0,0);
+        	block_main.put(shape);
         	
-        	ShapePlacement shapePlacement_line_1a = new ShapePlacement(1,0);
-        	shapePlacement_line_1a.put(shapeFactory.make(ShapeFactory.TYPE_BAR));
-        	shapePlacement_main.join(shapePlacement_line_1a);
+        	Block block_line_1A = new Block(1,0);
+        	block_line_1A.put(shapeFactory.make(ShapeFactory.I));
+        	block_main.join(block_line_1A);
 
-        	ShapePlacement shapePlacement_line_1b = new ShapePlacement(1,4);
-        	shapePlacement_line_1b.put(shapeFactory.make(ShapeFactory.TYPE_BAR));
-        	shapePlacement_main.join(shapePlacement_line_1b);
+        	Block block_line_1B = new Block(1,4);
+        	block_line_1B.put(shapeFactory.make(ShapeFactory.I));
+        	block_main.join(block_line_1B);
         	
-        	ShapePlacement shapePlacement_line_2 = new ShapePlacement(2,0);
-        	shapePlacement_line_2.put(shapeFactory.make(ShapeFactory.TYPE_BAR));
-        	shapePlacement_main.join(shapePlacement_line_2);
+        	Block block_line_2 = new Block(2,0);
+        	block_line_2.put(shapeFactory.make(ShapeFactory.I));
+        	block_main.join(block_line_2);
         	
-        	shapePlacement_main.eleminate(8);
+        	block_main.eliminate(8);
         	
-        	assertEquals(1,shapePlacement_main.getAt(shapePlacement_main.size()-1).x);
+        	assertEquals(1, block_main.getAt(block_main.size()-1).x);
         }
 
         
