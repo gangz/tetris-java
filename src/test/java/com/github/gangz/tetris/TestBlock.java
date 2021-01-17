@@ -17,8 +17,7 @@ public class TestBlock {
 	public void init() {
 		shapeFactory = new ShapeFactory();
 		bar = shapeFactory.make(ShapeFactory.I);
-		block = new Block(0,0);
-		block.put(bar);
+		block = new Block(0,0,bar);
 	}
 	
 	@Test

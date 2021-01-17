@@ -10,13 +10,16 @@ public class GameController implements CommandReciever{
 	private GameUI output;
 	private CollisionDetector collisionDetector;
 	Block activeBlock;
-	Block borderBlock;
+	Block nextBlock;
 	Block existedBlock;
-	
+	Block borderBlock;
+
 	boolean isRunning;
 	public static final int MOVE_LEFT = 0;
 	public static final int MOVE_RIGHT = 1;
 	public static final int MOVE_DOWN = 2;
+	private ShapeFactory shapeFactory= new ShapeFactory();
+
 	public GameController(GameUI gameUI){
 		this(gameUI,new CollisionDetector());
 	}
@@ -25,10 +28,20 @@ public class GameController implements CommandReciever{
 		//Link ui and controller bi-direction
 		gameUI.connect(this);
 		this.output = gameUI;
-		
 		this.collisionDetector = collisionDetector;
-        createWall();
+		createEmptyActiveBlock();
+		createEmptyExistedBlock();
+		createNextBlock();
+		createWall();
+		this.refresh();
         isRunning = false;
+	}
+
+	private void createEmptyActiveBlock() {
+		activeBlock = new Block();
+	}
+	private void createEmptyExistedBlock() {
+		existedBlock = new Block();
 	}
 
 	/**
@@ -36,9 +49,8 @@ public class GameController implements CommandReciever{
 	 * prevent the shape go out of the wall.
 	 */
 	private void createWall() {
-		borderBlock = new Block(-1,-1);
-        ShapeFactory shapeFactory = new ShapeFactory();
-        borderBlock.put(shapeFactory.makeWall(22,10));
+		borderBlock = new Block(-1,-1,
+				shapeFactory.makeWall(22,10));
 	}
 	
 
@@ -47,10 +59,7 @@ public class GameController implements CommandReciever{
 	{
 		if (isRunning) return;
  		isRunning = true;
-		activeBlock = new Block(0, 0);
-		createShape();
-        existedBlock = new Block(0,0);
-        existedBlock.put(new Shape());
+		createActiveBlock();
         refresh();
 	}
 
@@ -71,8 +80,7 @@ public class GameController implements CommandReciever{
 			existedBlock.join(activeBlock);
 			existedBlock.eliminate(8);
 			fallDownExistedShapePlacement();
-			activeBlock = new Block(0, 0);
-			createShape();
+			createActiveBlock();
 			refresh();
 			checkGameOver();
 			return;
@@ -98,10 +106,13 @@ public class GameController implements CommandReciever{
         return false;
 	}
 
-	private void createShape() {
-        ShapeFactory shapeFactory = new ShapeFactory();
-        Shape activeShape = shapeFactory.make(new Random().nextInt(ShapeFactory.NULL));
-        activeBlock.put(activeShape);
+	private void createActiveBlock() {
+		activeBlock = nextBlock;
+		createNextBlock();
+	}
+
+	private void createNextBlock() {
+		nextBlock = new Block(0, 0,shapeFactory.make(new Random().nextInt(ShapeFactory.NULL)));
 	}
 
 	@Override
@@ -143,6 +154,8 @@ public class GameController implements CommandReciever{
 		mainShapes.add(activeBlock);
         mainShapes.add(existedBlock);
 		this.output.refresh(mainShapes);
+		this.output.updateNextShape(nextBlock);
+		this.output.updateScore();
 	}
 
 	@Override

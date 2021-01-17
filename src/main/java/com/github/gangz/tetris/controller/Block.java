@@ -7,16 +7,25 @@ public class Block {
 	public Block(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.shape = new Shape();
 	}
 
-	public void put(Shape shape) {
+    public Block() {
+        this(0,0);
+    }
+
+    public Block(Shape shape){
+		this(0,0);
+		this.shape = new Shape();
+	}
+
+	public Block(int x, int y, Shape shape) {
+		this(x,y);
 		this.shape = shape;
 	}
 
-
-
 	public int size() {
-		//assert shape!=null;
+		assert shape!=null;
 		return shape.size();
 	}
 
@@ -31,12 +40,10 @@ public class Block {
 	
 	public void moveRight() {
 		y++;
-		
 	}
 
 	public void moveLeft() {
 		y--;
-		
 	}
 
 	public void join(Block rhs) {
@@ -50,10 +57,7 @@ public class Block {
 	public void eliminate(int max_width) {
 		shape.eliminate(max_width);
 	}
-
 	public void rotate() {
 		((RotatableShape)shape).rotate();
 	}
-
-
 }

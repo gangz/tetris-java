@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -21,7 +23,6 @@ import javax.swing.JOptionPane;
 
 import com.github.gangz.tetris.controller.Block;
 import com.github.gangz.tetris.controller.CommandReciever;
-import com.github.gangz.tetris.controller.GameController;
 import com.github.gangz.tetris.controller.GameUI;
 
 
@@ -83,7 +84,7 @@ public class SwingUI extends JFrame implements GameUI {
         constraint.gridx = 21;
         constraint.gridy = 1;
         constraint.gridwidth=1;
-        constraint.gridheight=6;
+        constraint.gridheight=10;
         layout.setConstraints(previewBoard, constraint);
 
 	    constraint.fill = GridBagConstraints.HORIZONTAL;
@@ -122,17 +123,16 @@ public class SwingUI extends JFrame implements GameUI {
 	}
 
 	@Override
-	public void updateNextShape() {
-		
+	public void updateNextShape(Block nextBlock) {
+		previewBoard.setShapes(Arrays.asList(nextBlock));
+		previewBoard.repaint();
 	}
+
 	@Override
 	public void updateScore() {
 		
 	}
-	@Override
-	public void updateSpeed() {
-		
-	}
+
 	@Override
 	public void connect(CommandReciever commandReciever) {
 		this.commandReciever = commandReciever;

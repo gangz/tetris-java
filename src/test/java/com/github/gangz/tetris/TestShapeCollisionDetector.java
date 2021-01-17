@@ -18,62 +18,45 @@ public class TestShapeCollisionDetector {
 	}
 	
 	@Test public void move_down_shoudld_be_ok(){
-		Block block_1 = new Block(0,0);
-		block_1.put(shapeFactory.make(ShapeFactory.I));
+		Block block_1 = new Block(0,0,shapeFactory.make(ShapeFactory.I));
 
-		Block block_2 = new Block(2,0);
-		block_2.put(shapeFactory.make(ShapeFactory.I));
-
+		Block block_2 = new Block(2,0,shapeFactory.make(ShapeFactory.I));
 		assertFalse(collisionDetector.isCollision(block_1, block_2, GameController.MOVE_DOWN));
 	}
 
 	@Test public void move_down_shoudld_be_collision(){
-		Block block_1 = new Block(0,0);
-		block_1.put(shapeFactory.make(ShapeFactory.I));
+		Block block_1 = new Block(0,0,shapeFactory.make(ShapeFactory.I));
 		block_1.moveDown();
 
-		Block block_2 = new Block(2,0);
-		block_2.put(shapeFactory.make(ShapeFactory.I));
+		Block block_2 = new Block(2,0,shapeFactory.make(ShapeFactory.I));
 
 		assertTrue(collisionDetector.isCollision(block_1, block_2, GameController.MOVE_DOWN));
 	}
 
 	@Test public void move_left_shoudld_be_collision(){
-		Block block_1 = new Block(0,4);
-		block_1.put(shapeFactory.make(ShapeFactory.I));
-
-		Block block_2 = new Block(0,0);
-		block_2.put(shapeFactory.make(ShapeFactory.I));
+		Block block_1 = new Block(0,4,shapeFactory.make(ShapeFactory.I));
+		Block block_2 = new Block(0,0,shapeFactory.make(ShapeFactory.I));
 
 		assertTrue(collisionDetector.isCollision(block_1, block_2, GameController.MOVE_LEFT));
 	}
 
 	@Test public void move_left_shoudld_be_ok(){
-		Block block_1 = new Block(0,5);
-		block_1.put(shapeFactory.make(ShapeFactory.I));
-
-		Block block_2 = new Block(0,0);
-		block_2.put(shapeFactory.make(ShapeFactory.I));
+		Block block_1 = new Block(0,5,shapeFactory.make(ShapeFactory.I));
+		Block block_2 = new Block(0,0,shapeFactory.make(ShapeFactory.I));
 
 		assertFalse(collisionDetector.isCollision(block_1, block_2, GameController.MOVE_LEFT));
 	}
 
 	@Test public void move_right_shoudld_be_ok(){
-		Block block_1 = new Block(0,0);
-		block_1.put(shapeFactory.make(ShapeFactory.I));
-
-		Block block_2 = new Block(0,5);
-		block_2.put(shapeFactory.make(ShapeFactory.I));
+		Block block_1 = new Block(0,0,shapeFactory.make(ShapeFactory.I));
+		Block block_2 = new Block(0,5,shapeFactory.make(ShapeFactory.I));
 
 		assertFalse(collisionDetector.isCollision(block_1, block_2, GameController.MOVE_RIGHT));
 	}
 
 	@Test public void move_right_shoudld_be_collision(){
-		Block block_1 = new Block(0,0);
-		block_1.put(shapeFactory.make(ShapeFactory.I));
-
-		Block block_2 = new Block(0,4);
-		block_2.put(shapeFactory.make(ShapeFactory.I));
+		Block block_1 = new Block(0,0,shapeFactory.make(ShapeFactory.I));
+		Block block_2 = new Block(0,4,shapeFactory.make(ShapeFactory.I));
 
 		assertTrue(collisionDetector.isCollision(block_1, block_2, GameController.MOVE_RIGHT));
 	}

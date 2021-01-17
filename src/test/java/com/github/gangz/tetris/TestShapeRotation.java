@@ -13,14 +13,13 @@ public class TestShapeRotation {
 	Block block;
 	@Before
 	public void setup(){
-		shapeFactory = new ShapeFactory();
-		block = new Block(0,0);
 	}
 
 	@Test
 	public void turn_a_bar_from_h_to_v(){
+		shapeFactory = new ShapeFactory();
 		Shape bar_h = shapeFactory.make(ShapeFactory.I);
-		block.put(bar_h);
+		block = new Block(0,0,bar_h);
 		block.rotate();
 		assertEquals(0, block.getAt(0).x);
 		assertEquals(2, block.getAt(0).y);
