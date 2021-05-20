@@ -5,21 +5,18 @@
  */
 
 package com.github.gangz.tetris.ui;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 
 import com.github.gangz.tetris.controller.Block;
 import com.github.gangz.tetris.controller.CommandReciever;
@@ -27,8 +24,8 @@ import com.github.gangz.tetris.controller.GameUI;
 
 
 public class SwingUI extends JFrame implements GameUI {
-	private static final int WINDOW_HEIGHT = 400;
-	private static final int WINDOW_WIDTH = 200;
+	private static final int WINDOW_HEIGHT = 600;
+	private static final int WINDOW_WIDTH = 400;
 	private static final long serialVersionUID = -5339939426923342316L;
 	public SwingUI() {
 	}
@@ -55,47 +52,13 @@ public class SwingUI extends JFrame implements GameUI {
 	private CommandReciever commandReciever;
     
 	public void init() {
-		setSize(WINDOW_WIDTH*2, WINDOW_HEIGHT);
+		initGlobalFontSetting(new Font("SimHei", Font.PLAIN, 20));
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setTitle("Tetris");
-	   
-        GridBagLayout layout = new GridBagLayout();
-        this.setLayout(layout);
-        mainBoard = new ActiveBoard(commandReciever,8,20);
-        previewBoard = new Board(4,4);
-        this.add(mainBoard);
-        this.add(previewBoard);
-	    startPauseStop = new JButton("Start");
-        this.add(startPauseStop);
-        score= new JLabel("0");
-        this.add(score);
-        	        
-        GridBagConstraints constraint= new GridBagConstraints();
-        constraint.insets = new Insets(4, 4, 4, 4);
-        constraint.weightx = 1;
-        constraint.weighty=1;
-        
-	    constraint.fill = GridBagConstraints.BOTH;
-	    constraint.gridwidth=20;
-        constraint.gridheight=20;
-        constraint.gridx = 0;
-        constraint.gridy = 0;
-        layout.setConstraints(mainBoard, constraint);
-        
-        constraint.gridx = 21;
-        constraint.gridy = 1;
-        constraint.gridwidth=1;
-        constraint.gridheight=10;
-        layout.setConstraints(previewBoard, constraint);
-
-	    constraint.fill = GridBagConstraints.HORIZONTAL;
-        constraint.gridheight=1;
-        constraint.gridy = 10;
-        layout.setConstraints(score, constraint);
-
-        constraint.gridheight=1;
-        constraint.gridy = 19;
-        layout.setConstraints(startPauseStop, constraint);
-        setVisible(true);
+	    setLayout(new BorderLayout(5,5));
+		createControlPanel();
+		createMainBoard();
+		setVisible(true);
         
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -122,6 +85,29 @@ public class SwingUI extends JFrame implements GameUI {
 		});
 	}
 
+	private void createMainBoard() {
+		mainBoard = new ActiveBoard(commandReciever,8,20);
+		mainBoard.setPreferredSize(new Dimension(240,600));
+		this.add(mainBoard);
+	}
+
+	private void createControlPanel() {
+		previewBoard = new Board(4,4);
+		startPauseStop = new JButton("Start");
+		score= new JLabel("score: 0");
+
+		JPanel controlPanel = new JPanel(new FlowLayout());
+		controlPanel.setPreferredSize(new Dimension(150,120));
+		this.add(controlPanel,BorderLayout.EAST);
+		previewBoard.setPreferredSize(new Dimension(120,120));
+		controlPanel.add(previewBoard);
+		score.setPreferredSize(new Dimension(120,40));
+		controlPanel.add(score);
+
+		startPauseStop.setPreferredSize(new Dimension(120,40));
+		controlPanel.add(startPauseStop);
+	}
+
 	@Override
 	public void updateNextShape(Block nextBlock) {
 		previewBoard.setShapes(Arrays.asList(nextBlock));
@@ -144,4 +130,15 @@ public class SwingUI extends JFrame implements GameUI {
 		mainBoard.setShapes(mainShapes);
 		mainBoard.repaint();
 	}
+
+	public static void initGlobalFontSetting(Font fnt){
+		FontUIResource fontRes = new FontUIResource(fnt);
+		for(Enumeration keys = UIManager.getDefaults().keys(); keys.hasMoreElements();){
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if(value instanceof FontUIResource)
+				UIManager.put(key, fontRes);
+		}
+	}
+
 }

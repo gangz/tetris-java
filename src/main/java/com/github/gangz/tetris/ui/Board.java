@@ -21,7 +21,7 @@ public class Board extends JPanel {
 	private List<Block> shapes;
 
 	public Board(int width, int height) {
-		setBackground(Color.BLACK);
+		setBackground(Color.lightGray);
 		setFocusable(false);
 		this.height  = height;
 		this.width = width;
