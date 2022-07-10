@@ -52,7 +52,10 @@ public class SwingGameUI extends JFrame implements GameUI {
     }
 
     private void createScoreBoard() {
-        scoreBoard = new ScoreBoard();
+        scoreBoard = new ScoreBoard(this,
+                mainBoard.getX()+mainBoard.getWidth()+40,
+                previewBoard.getY()+previewBoard.getHeight() +40,
+                previewBoard.getWidth());
     }
 
 }
