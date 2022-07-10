@@ -21,5 +21,7 @@ public class CellBoard extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        g.setColor(Color.RED);
+        g.fill3DRect(0,0,CELL_PIXEL_SIZE,CELL_PIXEL_SIZE,true);
     }
 }
