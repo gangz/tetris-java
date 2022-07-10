@@ -1,4 +1,4 @@
-package com.github.gangz.emergentdesign.demo;
+package com.github.gangz.emergentdesign.demo.tetris;
 
 import static org.junit.Assert.assertTrue;
 
