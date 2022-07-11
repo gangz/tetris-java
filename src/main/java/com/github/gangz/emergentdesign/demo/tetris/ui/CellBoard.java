@@ -2,6 +2,8 @@ package com.github.gangz.emergentdesign.demo.tetris.ui;
 
 import com.github.gangz.emergentdesign.demo.tetris.controller.Block;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Cell;
+
+import java.util.Collection;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -30,12 +32,12 @@ public class CellBoard extends JPanel {
         if (block == null) {
             return;
         }
-        List<Cell> cells = block.getCells();
+        Collection<Cell> cells = block.getCells();
         //clone the cell list to avoid concurrency problem
-        cells = (List<Cell>) ((ArrayList<Cell>)cells).clone();
+        cells = (Collection<Cell>) ((ArrayList<Cell>)cells).clone();
         for (Cell cell : cells) {
-            g.fill3DRect((block.getX()+cell.getX()) * CELL_PIXEL_SIZE,
-                    (block.getY()+cell.getY()) * CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, true);
+            g.fill3DRect((cell.getX()) * CELL_PIXEL_SIZE,
+                    (cell.getY()) * CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, true);
         }
     }
 
