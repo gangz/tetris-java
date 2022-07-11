@@ -27,4 +27,9 @@ public class Game {
         BlockFactory factory = new BlockFactory();
         piledBlock = factory.makeEmptyBlock();
     }
+
+    public void start() {
+        this.activeBlock = nextBlock;
+        makeNextBlock();
+    }
 }
