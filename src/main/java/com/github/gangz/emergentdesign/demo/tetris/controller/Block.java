@@ -6,20 +6,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Block {
-    private List<Cell> cells = new ArrayList<>();
+    private Shape shape;
     private int x;
     private int y;
 
+    public Block(){
+        shape = new Shape();
+    }
     public int size() {
-        return cells.size();
+        return shape.size();
     }
 
     public void addCell(Cell cell) {
-        cells.add(cell);
+        shape.add(cell);
     }
 
     public Collection<Cell> getCells() {
-        return cells.stream().map(c->(new Cell(c.x+x,c.y+y))).collect(Collectors.toList());
+        return shape.getCells().stream().map(c->(new Cell(c.x+x,c.y+y))).collect(Collectors.toList());
     }
 
     public int getX() {
