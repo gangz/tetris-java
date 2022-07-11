@@ -16,7 +16,7 @@ public class Game {
     private void initGame() {
         makeEmtpyPiledBlock();
         makeNextBlock();
-        ui.dataChanged();
+        dataChanged();
     }
 
     private void makeNextBlock() {
@@ -32,6 +32,11 @@ public class Game {
     public void start() {
         this.activeBlock = nextBlock;
         makeNextBlock();
+        dataChanged();
+    }
+
+    private void dataChanged() {
+        ui.dataChanged();
     }
 
     public Block getActivePiledBlock() {

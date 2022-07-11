@@ -4,8 +4,10 @@ import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class SwingGameUI extends JFrame implements GameUI {
+public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     private static final int WINDOW_WIDTH = 600;
     private static final int WINDOW_HEIGHT = 640;
     private MainBoard mainBoard;
@@ -15,6 +17,7 @@ public class SwingGameUI extends JFrame implements GameUI {
 
     public SwingGameUI() {
         initGameBoard();
+        addKeyListener(this);
     }
 
     @Override
@@ -64,4 +67,22 @@ public class SwingGameUI extends JFrame implements GameUI {
                 previewBoard.getWidth());
     }
 
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode())
+        {
+            case KeyEvent.VK_ENTER:
+                controller.start();
+        }
+    }
 }
