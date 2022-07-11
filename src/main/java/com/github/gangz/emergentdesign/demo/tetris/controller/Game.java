@@ -15,6 +15,12 @@ public class Game {
 
     private void initGame() {
         makeEmtpyPiledBlock();
+        makeNextBlock();
+    }
+
+    private void makeNextBlock() {
+        BlockFactory factory = new BlockFactory();
+        nextBlock = factory.makeRandomBlock();
     }
 
     private void makeEmtpyPiledBlock() {
