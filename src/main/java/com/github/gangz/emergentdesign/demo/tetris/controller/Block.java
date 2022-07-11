@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Block {
     List<Cell> cells = new ArrayList<>();
+    private int x;
+    private int y;
+
     public int size() {
         return cells.size();
     }
@@ -17,4 +20,15 @@ public class Block {
         return cells;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void moveDown() {
+        y++;
+    }
 }

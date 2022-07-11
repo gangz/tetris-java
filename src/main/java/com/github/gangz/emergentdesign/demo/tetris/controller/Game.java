@@ -39,11 +39,15 @@ public class Game {
         ui.dataChanged();
     }
 
-    public Block getActivePiledBlock() {
+    public Block getActiveBlock() {
         return activeBlock;
     }
 
     public Block getNextBlock() {
         return nextBlock;
+    }
+
+    public void moveDown() {
+        activeBlock.moveDown();
     }
 }

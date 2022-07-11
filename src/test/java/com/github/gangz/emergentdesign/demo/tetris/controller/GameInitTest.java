@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  * Test of Game Controller.
  */
-public class GameTest
+public class GameInitTest
 {
     @Test
     public void game_init_should_create_empty_piled_block()

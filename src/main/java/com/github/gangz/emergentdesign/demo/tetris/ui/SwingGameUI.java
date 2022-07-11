@@ -27,7 +27,7 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
 
     @Override
     public void dataChanged() {
-        mainBoard.refresh(controller.getActivePiledBlock());
+        mainBoard.refresh(controller.getActiveBlock());
         previewBoard.refresh(controller.getNextBlock());
     }
 
