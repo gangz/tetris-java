@@ -10,5 +10,15 @@ public class Game {
     public Game(GameUI gameUI) {
         this.ui = gameUI;
         ui.setController(this);
+        initGame();
+    }
+
+    private void initGame() {
+        makeEmtpyPiledBlock();
+    }
+
+    private void makeEmtpyPiledBlock() {
+        BlockFactory factory = new BlockFactory();
+        piledBlock = factory.makeEmptyBlock();
     }
 }
