@@ -47,7 +47,12 @@ public class Game {
         return nextBlock;
     }
 
-    public void moveDown() {
+    public void moveActiveBlockDown() {
+        if (activeBlock==null) {
+            return;
+        }
         activeBlock.moveDown();
+        dataChanged();
     }
+
 }

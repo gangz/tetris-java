@@ -17,7 +17,7 @@ public class BlockMoveTest
         Game game = new Game(new NullUI());
         game.start();
         int x = game.getActiveBlock().getY();
-        game.moveDown();
+        game.moveActiveBlockDown();
         assertEquals(x+1,game.getActiveBlock().getY());
     }
 }

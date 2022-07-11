@@ -34,8 +34,8 @@ public class CellBoard extends JPanel {
         //clone the cell list to avoid concurrency problem
         cells = (List<Cell>) ((ArrayList<Cell>)cells).clone();
         for (Cell cell : cells) {
-            g.fill3DRect((cell.getX()) * CELL_PIXEL_SIZE,
-                    (cell.getY()) * CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, true);
+            g.fill3DRect((block.getX()+cell.getX()) * CELL_PIXEL_SIZE,
+                    (block.getY()+cell.getY()) * CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, CELL_PIXEL_SIZE, true);
         }
     }
 
