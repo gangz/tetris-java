@@ -7,4 +7,9 @@ public class NullUI implements GameUI {
     @Override
     public void setController(Game game) {
     }
+
+    @Override
+    public void dataChanged() {
+
+    }
 }

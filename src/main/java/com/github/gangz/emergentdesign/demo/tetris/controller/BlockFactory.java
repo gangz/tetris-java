@@ -6,6 +6,8 @@ public class BlockFactory {
     }
 
     public Block makeRandomBlock() {
-        return new Block();
+        Block block = new Block();
+        block.addCell(new Cell(0,0));
+        return block;
     }
 }

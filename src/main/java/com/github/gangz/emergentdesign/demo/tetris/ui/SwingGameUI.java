@@ -22,6 +22,12 @@ public class SwingGameUI extends JFrame implements GameUI {
         this.controller = game;
     }
 
+    @Override
+    public void dataChanged() {
+        mainBoard.refresh(controller.getActivePiledBlock());
+        previewBoard.refresh(controller.getNextBlock());
+    }
+
     /**
      * Init the game board
      */
