@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Block {
-    List<Cell> cells = new ArrayList<>();
+    private List<Cell> cells = new ArrayList<>();
     private int x;
     private int y;
 
