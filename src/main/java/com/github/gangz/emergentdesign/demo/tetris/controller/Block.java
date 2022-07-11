@@ -31,4 +31,12 @@ public class Block {
     public void moveDown() {
         y++;
     }
+
+    public void moveLeft() {
+        x--;
+    }
+
+    public void moveRight() {
+        x++;
+    }
 }

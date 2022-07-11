@@ -19,16 +19,6 @@ public class Game {
         dataChanged();
     }
 
-    private void makeNextBlock() {
-        BlockFactory factory = new BlockFactory();
-        nextBlock = factory.makeRandomBlock();
-    }
-
-    private void makeEmtpyPiledBlock() {
-        BlockFactory factory = new BlockFactory();
-        piledBlock = factory.makeEmptyBlock();
-    }
-
     public void start() {
         this.activeBlock = nextBlock;
         makeNextBlock();
@@ -37,6 +27,16 @@ public class Game {
 
     private void dataChanged() {
         ui.dataChanged();
+    }
+
+    private void makeNextBlock() {
+        BlockFactory factory = new BlockFactory();
+        nextBlock = factory.makeRandomBlock();
+    }
+
+    private void makeEmtpyPiledBlock() {
+        BlockFactory factory = new BlockFactory();
+        piledBlock = factory.makeEmptyBlock();
     }
 
     public Block getActiveBlock() {
@@ -55,4 +55,19 @@ public class Game {
         dataChanged();
     }
 
+    public void moveActiveBlockLeft() {
+        if (activeBlock==null) {
+            return;
+        }
+        activeBlock.moveLeft();
+        dataChanged();
+    }
+
+    public void moveActiveBlockRight() {
+        if (activeBlock==null) {
+            return;
+        }
+        activeBlock.moveRight();
+        dataChanged();
+    }
 }

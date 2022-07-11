@@ -81,11 +81,18 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode())
         {
+            case KeyEvent.VK_LEFT:
+                controller.moveActiveBlockLeft();
+                break;
+            case KeyEvent.VK_RIGHT:
+                controller.moveActiveBlockRight();
+                break;
             case KeyEvent.VK_DOWN:
                 controller.moveActiveBlockDown();
                 break;
             case KeyEvent.VK_ENTER:
                 controller.start();
+                break;
         }
     }
 }
