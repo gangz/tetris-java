@@ -36,7 +36,7 @@ public class Game {
     }
 
     private void makeEmtpyPiledBlock() {
-        piledBlock = new Block();
+        piledBlock = new Block(shapeFactory.makeEmpty());
     }
 
     public Block getActiveBlock() {

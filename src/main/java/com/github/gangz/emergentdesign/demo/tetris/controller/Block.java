@@ -10,10 +10,6 @@ public class Block {
     private int x;
     private int y;
 
-    public Block(){
-        shape = new EmptyShape();
-    }
-
     public Block(Shape shape) {
         this.shape = shape;
     }

@@ -1,6 +1,5 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
-import com.github.gangz.emergentdesign.demo.tetris.NullUI;
 import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
 import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import org.junit.Test;
