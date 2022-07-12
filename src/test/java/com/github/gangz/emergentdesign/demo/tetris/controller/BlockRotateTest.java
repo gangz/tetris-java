@@ -25,6 +25,16 @@ public class BlockRotateTest
                 convertToArray(blockI.getCells()));
     }
 
+    @Test
+    public void shape_Z_rotate_test()
+    {
+        BlockFactory factory = new BlockFactory();
+        Block blockZ = factory.makeBlockZ();
+        blockZ.rotate();
+        assertArrayEquals(new int[][]{{0,1},{1,0},{1,1},{2,0}},
+                convertToArray(blockZ.getCells()));
+    }
+
     private Object[] convertToArray(Collection<Cell> cells) {
         List<int[]> result = cells.stream().map(c -> (new int[]{c.x, c.y})).collect(Collectors.toList());
         return result.toArray();
