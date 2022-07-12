@@ -16,4 +16,13 @@ public class BlockFactory {
         }
         return block;
     }
+
+    public Block makeBarZ() {
+        Block block = new Block();
+        int[][] data = new int[][]{{0,0},{0,1},{1,1},{1,2}};
+        for (int y=0;y<4;y++) {
+            block.addCell(new Cell(data[y][0],data[y][1]));
+        }
+        return block;
+    }
 }

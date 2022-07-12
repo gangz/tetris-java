@@ -16,10 +16,18 @@ import static org.junit.Assert.assertEquals;
 public class BlockFactoryTest
 {
     @Test
-    public void produce_a_bar(){
+    public void produce_bar_I(){
         BlockFactory blockFactory = new BlockFactory();
         Block bar = blockFactory.makeVerticalBar();
         assertArrayEquals(new int[][]{{0,0},{0,1},{0,2},{0,3}},
+                convertToArray(bar.getCells()));
+    }
+
+    @Test
+    public void produce_bar_Z(){
+        BlockFactory blockFactory = new BlockFactory();
+        Block bar = blockFactory.makeBarZ();
+        assertArrayEquals(new int[][]{{0,0},{0,1},{1,1},{1,2}},
                 convertToArray(bar.getCells()));
     }
 
