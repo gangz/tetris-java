@@ -8,13 +8,8 @@ import java.util.List;
 
 public abstract class Shape {
     private List<Cell> cells = new ArrayList<>();
-
-    public int size() {
-        return cells.size();
-    }
     public Collection<Cell> getCells() {
         return cells;
     }
-
     public abstract void rotate();
 }

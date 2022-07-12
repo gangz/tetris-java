@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class RotatableShape extends  Shape{
+public class RotatableShape extends  Shape{
     int index = 0;
     int[][][] data = null;
-    public RotatableShape(){
+    public RotatableShape(int[][][]data){
         index = 0;
+        this.data = data;
     }
 
     @Override

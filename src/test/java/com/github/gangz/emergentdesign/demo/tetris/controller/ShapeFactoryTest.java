@@ -1,5 +1,6 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
+import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -9,25 +10,20 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Test of Game Controller.
- */
-public class BlockFactoryTest
+public class ShapeFactoryTest
 {
     @Test
     public void produce_block_I(){
-        BlockFactory blockFactory = new BlockFactory();
-        Block bar = blockFactory.makeBlockI();
+        ShapeFactory factory = new ShapeFactory();
         assertArrayEquals(new int[][]{{0,0},{0,1},{0,2},{0,3}},
-                convertToArray(bar.getCells()));
+                convertToArray(factory.makeI().getCells()));
     }
 
     @Test
     public void produce_block_Z(){
-        BlockFactory blockFactory = new BlockFactory();
-        Block bar = blockFactory.makeBlockZ();
+        ShapeFactory factory = new ShapeFactory();
         assertArrayEquals(new int[][]{{0,0},{0,1},{1,1},{1,2}},
-                convertToArray(bar.getCells()));
+                convertToArray(factory.makeZ().getCells()));
     }
 
     private Object[] convertToArray(Collection<Cell> cells) {

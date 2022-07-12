@@ -1,5 +1,6 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
+import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 
 public class Game {
@@ -7,6 +8,7 @@ public class Game {
     Block activeBlock;
     Block nextBlock;
     Block piledBlock;
+    ShapeFactory shapeFactory = new ShapeFactory();
     public Game(GameUI gameUI) {
         this.ui = gameUI;
         ui.setController(this);
@@ -30,13 +32,11 @@ public class Game {
     }
 
     private void makeNextBlock() {
-        BlockFactory factory = new BlockFactory();
-        nextBlock = factory.makeRandomBlock();
+        nextBlock = new Block(shapeFactory.makeRandom());
     }
 
     private void makeEmtpyPiledBlock() {
-        BlockFactory factory = new BlockFactory();
-        piledBlock = factory.makeEmptyBlock();
+        piledBlock = new Block();
     }
 
     public Block getActiveBlock() {
