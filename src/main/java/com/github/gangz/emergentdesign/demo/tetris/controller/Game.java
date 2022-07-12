@@ -75,7 +75,7 @@ public class Game {
     }
 
     private boolean isFallenBottom() {
-        return true;
+        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.DOWN);
     }
 
     public void moveLeft() {
