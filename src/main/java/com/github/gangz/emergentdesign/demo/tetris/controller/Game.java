@@ -22,8 +22,7 @@ public class Game {
     }
 
     public void start() {
-        this.activeBlock = nextBlock;
-        makeNextBlock();
+        createActiveBlock();
         dataChanged();
     }
 
@@ -51,8 +50,32 @@ public class Game {
         if (activeBlock==null) {
             return;
         }
-        activeBlock.moveDown();
+        if (isFallenBottom()){
+            piledBlock.join(activeBlock);
+            piledBlock.eliminate(8);
+            fallDownIfPiledBlockHanged();
+            checkGameOver();
+            createActiveBlock();
+        }else{
+            activeBlock.moveDown();
+        }
         dataChanged();
+    }
+
+    private void createActiveBlock() {
+        this.activeBlock = nextBlock;
+        makeNextBlock();
+    }
+
+
+    private void checkGameOver() {
+    }
+
+    private void fallDownIfPiledBlockHanged() {
+    }
+
+    private boolean isFallenBottom() {
+        return true;
     }
 
     public void moveLeft() {

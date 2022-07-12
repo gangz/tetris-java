@@ -41,4 +41,10 @@ public class Block {
     public void rotate() {
         shape.rotate();
     }
+
+    public void join(Block activeBlock) {
+    }
+
+    public void eliminate(int i) {
+    }
 }
