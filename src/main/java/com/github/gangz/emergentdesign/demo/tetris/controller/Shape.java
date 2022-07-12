@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Shape {
+public abstract class Shape {
     private List<Cell> cells = new ArrayList<>();
 
     public int size() {
@@ -19,7 +19,5 @@ public class Shape {
         return cells;
     }
 
-    public void rotate() {
-
-    }
+    public abstract void rotate();
 }

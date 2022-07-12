@@ -11,8 +11,13 @@ public class Block {
     private int y;
 
     public Block(){
-        shape = new Shape();
+        shape = new EmptyShape();
     }
+
+    public Block(Shape shape) {
+        this.shape = shape;
+    }
+
     public int size() {
         return shape.size();
     }
