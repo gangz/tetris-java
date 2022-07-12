@@ -1,4 +1,6 @@
-package com.github.gangz.emergentdesign.demo.tetris.controller;
+package com.github.gangz.emergentdesign.demo.tetris.shape;
+
+import com.github.gangz.emergentdesign.demo.tetris.controller.Cell;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,11 +12,6 @@ public abstract class Shape {
     public int size() {
         return cells.size();
     }
-
-    public void add(Cell cell) {
-        cells.add(cell);
-    }
-
     public Collection<Cell> getCells() {
         return cells;
     }

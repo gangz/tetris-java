@@ -11,13 +11,6 @@ import org.junit.Test;
 public class GameInitTest
 {
     @Test
-    public void game_init_should_create_empty_piled_block()
-    {
-        Game game = new Game(new NullUI());
-        Assert.assertEquals(0,game.piledBlock.size());
-    }
-
-    @Test
     public void game_init_should_create_random_next_block()
     {
         Game game = new Game(new NullUI());

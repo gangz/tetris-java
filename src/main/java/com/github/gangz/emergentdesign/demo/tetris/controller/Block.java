@@ -1,8 +1,8 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
-import java.util.ArrayList;
+import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
+
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class Block {
@@ -16,14 +16,6 @@ public class Block {
 
     public Block(Shape shape) {
         this.shape = shape;
-    }
-
-    public int size() {
-        return shape.size();
-    }
-
-    public void addCell(Cell cell) {
-        shape.add(cell);
     }
 
     public Collection<Cell> getCells() {

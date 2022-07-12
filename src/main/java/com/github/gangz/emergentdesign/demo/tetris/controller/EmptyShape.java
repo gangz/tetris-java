@@ -1,6 +1,8 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
-public class EmptyShape extends Shape{
+import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
+
+public class EmptyShape extends Shape {
     public EmptyShape(){
     }
 
