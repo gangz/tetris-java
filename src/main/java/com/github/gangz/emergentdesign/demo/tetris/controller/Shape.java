@@ -18,4 +18,8 @@ public class Shape {
     public Collection<Cell> getCells() {
         return cells;
     }
+
+    public void rotate() {
+
+    }
 }

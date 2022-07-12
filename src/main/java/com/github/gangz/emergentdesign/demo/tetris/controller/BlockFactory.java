@@ -9,10 +9,12 @@ public class BlockFactory {
         return makeBlockI();
     }
 
+
     public Block makeBlockI() {
         Block block = new Block();
+        int[][] data = new int[][]{{0,0},{0,1},{0,2},{0,3}};
         for (int y=0;y<4;y++) {
-            block.addCell(new Cell(0,y));
+            block.addCell(new Cell(data[y][0],data[y][1]));
         }
         return block;
     }

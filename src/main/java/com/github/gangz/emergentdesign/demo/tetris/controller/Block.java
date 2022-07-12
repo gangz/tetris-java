@@ -44,4 +44,8 @@ public class Block {
     public void moveRight() {
         x++;
     }
+
+    public void rotate() {
+        shape.rotate();
+    }
 }
