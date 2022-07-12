@@ -1,7 +1,6 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
 import com.github.gangz.emergentdesign.demo.tetris.NullUI;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -14,7 +13,7 @@ public class BlockMoveTest
         Game game = new Game(new NullUI());
         game.start();
         int x = game.getActiveBlock().getY();
-        game.moveActiveBlockDown();
+        game.moveDown();
         assertEquals(x+1,game.getActiveBlock().getY());
     }
 }

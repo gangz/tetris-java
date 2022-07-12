@@ -47,7 +47,7 @@ public class Game {
         return nextBlock;
     }
 
-    public void moveActiveBlockDown() {
+    public void moveDown() {
         if (activeBlock==null) {
             return;
         }
@@ -55,7 +55,7 @@ public class Game {
         dataChanged();
     }
 
-    public void moveActiveBlockLeft() {
+    public void moveLeft() {
         if (activeBlock==null) {
             return;
         }
@@ -63,11 +63,19 @@ public class Game {
         dataChanged();
     }
 
-    public void moveActiveBlockRight() {
+    public void moveRight() {
         if (activeBlock==null) {
             return;
         }
         activeBlock.moveRight();
+        dataChanged();
+    }
+
+    public void turn() {
+        if (activeBlock==null) {
+            return;
+        }
+        activeBlock.rotate();
         dataChanged();
     }
 }
