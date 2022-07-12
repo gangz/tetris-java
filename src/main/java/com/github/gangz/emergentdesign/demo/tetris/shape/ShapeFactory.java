@@ -21,43 +21,43 @@ public class ShapeFactory {
     }
 
     public Shape makeI(){
-        return new Shape(
+        return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{0,3}},
                         {{1,0},{1,0},{2,0},{3,0}}}
         );
     }
     public Shape makeO(){
-        return new Shape(
+        return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{1,0},{1,1}}}
         );
     }
     public Shape makeZ(){
-        return new Shape(
+        return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{1,1},{1,2}},
                         {{0,1},{1,0},{1,1},{2,0}}}
         );
     }
     public Shape makeS(){
-        return new Shape(
+        return new PredefinedShape(
                 new int[][][]{{{0,1},{0,2},{1,0},{1,1}},
                         {{0,0},{1,0},{1,1},{2,1}}}
         );
     }
     public Shape makeL(){
-        return new Shape(
+        return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{1,2}},
                         {{0,1},{1,1},{2,1},{2,0}}}
         );
     }
     public Shape makeJ(){
-        return new Shape(
+        return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{1,0}},
                         {{0,0},{1,0},{2,0},{2,1}}}
         );
     }
 
     public Shape makeT(){
-        return new Shape(
+        return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{0,3}},
                         {{1,0},{1,0},{2,0},{3,0}}}
         );
