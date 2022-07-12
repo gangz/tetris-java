@@ -6,10 +6,10 @@ public class BlockFactory {
     }
 
     public Block makeRandomBlock() {
-        return makeVerticalBar();
+        return makeBlockI();
     }
 
-    public Block makeVerticalBar() {
+    public Block makeBlockI() {
         Block block = new Block();
         for (int y=0;y<4;y++) {
             block.addCell(new Cell(0,y));
@@ -17,7 +17,7 @@ public class BlockFactory {
         return block;
     }
 
-    public Block makeBarZ() {
+    public Block makeBlockZ() {
         Block block = new Block();
         int[][] data = new int[][]{{0,0},{0,1},{1,1},{1,2}};
         for (int y=0;y<4;y++) {

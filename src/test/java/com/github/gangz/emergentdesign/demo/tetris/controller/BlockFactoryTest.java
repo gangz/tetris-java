@@ -1,6 +1,5 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
-import com.github.gangz.emergentdesign.demo.tetris.NullUI;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -16,17 +15,17 @@ import static org.junit.Assert.assertEquals;
 public class BlockFactoryTest
 {
     @Test
-    public void produce_bar_I(){
+    public void produce_block_I(){
         BlockFactory blockFactory = new BlockFactory();
-        Block bar = blockFactory.makeVerticalBar();
+        Block bar = blockFactory.makeBlockI();
         assertArrayEquals(new int[][]{{0,0},{0,1},{0,2},{0,3}},
                 convertToArray(bar.getCells()));
     }
 
     @Test
-    public void produce_bar_Z(){
+    public void produce_block_Z(){
         BlockFactory blockFactory = new BlockFactory();
-        Block bar = blockFactory.makeBarZ();
+        Block bar = blockFactory.makeBlockZ();
         assertArrayEquals(new int[][]{{0,0},{0,1},{1,1},{1,2}},
                 convertToArray(bar.getCells()));
     }
