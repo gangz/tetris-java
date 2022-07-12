@@ -49,9 +49,19 @@ public class Block {
         shape.rotate();
     }
 
-    public void join(Block activeBlock) {
+    public void join(Block anotherBlock) {
+        int xOffset =anotherBlock.getX()-x;
+        int yOffset = anotherBlock.getY()-y;
+        for (Cell cell:anotherBlock.getCells()){
+            this.shape.add(new Cell(xOffset+cell.getX(),
+                    yOffset+cell.getY()));
+        }
     }
 
     public void eliminate(int i) {
+    }
+
+    public int size() {
+        return shape.getCells().size();
     }
 }

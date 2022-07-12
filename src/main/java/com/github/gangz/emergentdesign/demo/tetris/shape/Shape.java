@@ -18,4 +18,8 @@ public class Shape{
     public List<Cell> getCells() {
         return shape;
     }
+
+    public void add(Cell cell) {
+        shape.add(cell);
+    }
 }
