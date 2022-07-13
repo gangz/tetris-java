@@ -99,25 +99,27 @@ public class Game {
     }
 
     public void moveLeft() {
-        if (activeBlock==null) {
+        if (activeBlock==null)
             return;
-        }
+        if (CollisionDetector.isCollision(activeBlock,wall,Direction.LEFT))
+            return;
         activeBlock.moveLeft();
         dataChanged();
     }
 
     public void moveRight() {
-        if (activeBlock==null) {
+        if (activeBlock==null)
             return;
-        }
+        if (CollisionDetector.isCollision(activeBlock,wall,Direction.RIGHT))
+            return;
+
         activeBlock.moveRight();
         dataChanged();
     }
 
     public void turn() {
-        if (activeBlock==null) {
+        if (activeBlock==null)
             return;
-        }
         activeBlock.rotate();
         dataChanged();
     }
