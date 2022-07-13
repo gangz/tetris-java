@@ -93,15 +93,10 @@ public class Game {
     private void fallDownIfPiledBlockHanged() {
     }
 
-    private boolean isFallenBottom() {
-        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.DOWN) ||
-                CollisionDetector.isCollision(activeBlock,wall, Direction.DOWN);
-    }
-
     public void moveLeft() {
         if (activeBlock==null)
             return;
-        if (CollisionDetector.isCollision(activeBlock,wall,Direction.LEFT))
+        if (isReachLeft())
             return;
         activeBlock.moveLeft();
         dataChanged();
@@ -110,7 +105,7 @@ public class Game {
     public void moveRight() {
         if (activeBlock==null)
             return;
-        if (CollisionDetector.isCollision(activeBlock,wall,Direction.RIGHT))
+        if (isReachRight())
             return;
 
         activeBlock.moveRight();
@@ -124,4 +119,18 @@ public class Game {
         dataChanged();
     }
 
+    private boolean isFallenBottom() {
+        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.DOWN) ||
+                CollisionDetector.isCollision(activeBlock,wall, Direction.DOWN);
+    }
+
+    private boolean isReachLeft() {
+        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.LEFT) ||
+                CollisionDetector.isCollision(activeBlock,wall, Direction.LEFT);
+    }
+
+    private boolean isReachRight() {
+        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.RIGHT) ||
+                CollisionDetector.isCollision(activeBlock,wall, Direction.RIGHT);
+    }
 }

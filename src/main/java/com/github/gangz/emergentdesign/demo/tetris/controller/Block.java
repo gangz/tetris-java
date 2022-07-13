@@ -2,8 +2,10 @@ package com.github.gangz.emergentdesign.demo.tetris.controller;
 
 import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Block {
@@ -56,10 +58,11 @@ public class Block {
         }
     }
 
-    public void eliminate(int i) {
-    }
-
     public int size() {
         return shape.getCells().size();
+    }
+
+    public int eliminate(int rowWidth) {
+        return shape.eliminate(rowWidth);
     }
 }
