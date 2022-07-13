@@ -1,5 +1,7 @@
 package com.github.gangz.emergentdesign.demo.tetris.shape;
 
+import com.github.gangz.emergentdesign.demo.tetris.controller.Cell;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,5 +67,19 @@ public class ShapeFactory {
 
     public Shape makeEmpty(){
         return new Shape();
+    }
+
+    public Shape makeHorzionalBar(int size) {
+        Shape shape  = new Shape();
+        for (int x=0;x<size;x++)
+            shape.add(new Cell(x,0));
+        return shape;
+    }
+
+    public Shape makeVerticalBar(int size) {
+        Shape shape  = new Shape();
+        for (int y=0;y<size;y++)
+            shape.add(new Cell(0,y));
+        return shape;
     }
 }

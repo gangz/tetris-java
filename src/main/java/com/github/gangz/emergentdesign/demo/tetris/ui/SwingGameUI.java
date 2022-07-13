@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
 public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     private static final int WINDOW_WIDTH = 600;
@@ -27,8 +28,8 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
 
     @Override
     public void dataChanged() {
-        mainBoard.refresh(controller.getActiveBlock());
-        previewBoard.refresh(controller.getNextBlock());
+        mainBoard.refresh(Arrays.asList(controller.getActiveBlock(),controller.getPiledBlock()));
+        previewBoard.refresh(Arrays.asList(controller.getNextBlock()));
     }
 
     /**

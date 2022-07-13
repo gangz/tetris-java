@@ -4,11 +4,15 @@ import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 
 public class Game {
+    private static final int HORIZONAL_SIZE = 8;
+    private static final int VERTICAL_SIZE = 16;
     private final GameUI ui;
     Block activeBlock;
     Block nextBlock;
     Block piledBlock;
+    Block wall;
     ShapeFactory shapeFactory = new ShapeFactory();
+
     public Game(GameUI gameUI) {
         this.ui = gameUI;
         ui.setController(this);
@@ -18,7 +22,18 @@ public class Game {
     private void initGame() {
         makeEmtpyPiledBlock();
         makeNextBlock();
+        makeWall();
         dataChanged();
+    }
+
+    private void makeWall() {
+        ShapeFactory factory = new ShapeFactory();
+        Block bottom = new Block(0, VERTICAL_SIZE,factory.makeHorzionalBar(HORIZONAL_SIZE));
+        Block left = new Block(-1, 0,factory.makeVerticalBar(VERTICAL_SIZE));
+        Block right = new Block(HORIZONAL_SIZE, 0,factory.makeVerticalBar(VERTICAL_SIZE));
+        wall = bottom;
+        wall.join(left);
+        wall.join(right);
     }
 
     public void start() {
@@ -35,7 +50,7 @@ public class Game {
     }
 
     private void makeEmtpyPiledBlock() {
-        piledBlock = new Block(shapeFactory.makeEmpty());
+        piledBlock = new Block(0,VERTICAL_SIZE-1,shapeFactory.makeVerticalBar(1));
     }
 
     public Block getActiveBlock() {
@@ -44,6 +59,10 @@ public class Game {
 
     public Block getNextBlock() {
         return nextBlock;
+    }
+
+    public Block getPiledBlock() {
+        return piledBlock;
     }
 
     public void moveDown() {
@@ -75,7 +94,8 @@ public class Game {
     }
 
     private boolean isFallenBottom() {
-        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.DOWN);
+        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.DOWN) ||
+                CollisionDetector.isCollision(activeBlock,wall, Direction.DOWN);
     }
 
     public void moveLeft() {
@@ -101,4 +121,5 @@ public class Game {
         activeBlock.rotate();
         dataChanged();
     }
+
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class CellBoard extends JPanel {
     private static final int CELL_PIXEL_SIZE = 35;
-    private Block block;
+    private List<Block> blocks;
     public  CellBoard(JFrame parent, int left, int top,int horizonalCellCount, int verticalCellCount){
         init(horizonalCellCount,verticalCellCount);
         parent.add(this);
@@ -29,9 +29,11 @@ public class CellBoard extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.RED);
-        if (block == null) {
-            return;
-        }
+        blocks.forEach(block->displayBlock(g,block));
+    }
+
+    private void displayBlock(Graphics g, Block block) {
+        if (block ==null) return;
         Collection<Cell> cells = block.getCells();
         //clone the cell list to avoid concurrency problem
         cells = (Collection<Cell>) ((ArrayList<Cell>)cells).clone();
@@ -41,8 +43,8 @@ public class CellBoard extends JPanel {
         }
     }
 
-    public void refresh(Block block) {
-        this.block = block;
+    public void refresh(List<Block> blocks) {
+        this.blocks = blocks;
         repaint();
     }
 }

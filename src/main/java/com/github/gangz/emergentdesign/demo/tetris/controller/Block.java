@@ -50,11 +50,9 @@ public class Block {
     }
 
     public void join(Block anotherBlock) {
-        int xOffset =anotherBlock.getX()-x;
-        int yOffset = anotherBlock.getY()-y;
         for (Cell cell:anotherBlock.getCells()){
-            this.shape.add(new Cell(xOffset+cell.getX(),
-                    yOffset+cell.getY()));
+            this.shape.add(new Cell(cell.getX()-x,
+                    cell.getY()-y));
         }
     }
 

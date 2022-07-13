@@ -19,3 +19,5 @@ public class BlockJoinTest
         assertEquals(8,b_1.size());
     }
 }
+
+
