@@ -28,7 +28,12 @@ public class Shape{
     public int eliminate(int rowWidth) {
         List<Integer> rowsToBeRemoved = findAllWholeRows(rowWidth);
         shape.removeIf(cell->rowsToBeRemoved.contains(cell.y));
+        shape.forEach(cell->{cell.y = cell.y+countHighRows(rowsToBeRemoved,cell.y);});
         return rowsToBeRemoved.size();
+    }
+
+    private int countHighRows(List<Integer> rowsToBeRemoved, int y) {
+        return (int) rowsToBeRemoved.stream().filter(rowIndex->(y<rowIndex)).count();
     }
 
     private List<Integer> findAllWholeRows(int rowWidth) {
