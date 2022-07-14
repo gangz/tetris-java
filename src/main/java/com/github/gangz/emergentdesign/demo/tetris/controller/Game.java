@@ -71,7 +71,7 @@ public class Game {
         }
         if (isFallenBottom()){
             piledBlock.join(activeBlock);
-            piledBlock.eliminate(8);
+            piledBlock.eliminate(HORIZONAL_SIZE);
             createActiveBlock();
             checkGameOver();
         }else{
