@@ -19,7 +19,7 @@ public class ShapeRotateTest
         ShapeFactory factory = new ShapeFactory();
         Shape shape = factory.makeI();
         shape.rotate();
-        assertArrayEquals(new int[][]{{1,0},{1,0},{2,0},{3,0}},
+        assertArrayEquals(new int[][]{{0,0},{1,0},{2,0},{3,0}},
                 convertToArray(shape.getCells()));
     }
 

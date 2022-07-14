@@ -2,10 +2,7 @@ package com.github.gangz.emergentdesign.demo.tetris.controller;
 
 import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Block {
@@ -64,5 +61,11 @@ public class Block {
 
     public int eliminate(int rowWidth) {
         return shape.eliminate(rowWidth);
+    }
+
+    public int height() {
+        Optional<Cell> max = shape.getCells().stream().max(Comparator.comparingInt(Cell::getY));
+        Optional<Cell> min = shape.getCells().stream().min(Comparator.comparingInt(Cell::getY));
+        return max.get().y-min.get().y+1;
     }
 }
