@@ -12,4 +12,9 @@ public class NullUI implements GameUI {
     public void dataChanged() {
 
     }
+
+    @Override
+    public void notifyGameOver() {
+
+    }
 }

@@ -72,8 +72,8 @@ public class Game {
         if (isFallenBottom()){
             piledBlock.join(activeBlock);
             piledBlock.eliminate(8);
-            checkGameOver();
             createActiveBlock();
+            checkGameOver();
         }else{
             activeBlock.moveDown();
         }
@@ -87,14 +87,13 @@ public class Game {
 
 
     private void checkGameOver() {
-        if (activeBlock.height()>VERTICAL_SIZE)
+        if (piledBlock.height()>=VERTICAL_SIZE)
             notifyGameOver();
     }
 
     private void notifyGameOver() {
-    }
-
-    private void fallDownIfPiledBlockHanged() {
+        ui.notifyGameOver();
+        this.initGame();
     }
 
     public void moveLeft() {

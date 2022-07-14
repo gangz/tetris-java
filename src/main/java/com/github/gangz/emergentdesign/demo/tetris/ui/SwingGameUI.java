@@ -32,7 +32,13 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
         previewBoard.refresh(Arrays.asList(controller.getNextBlock()));
     }
 
-    /**
+    @Override
+    public void notifyGameOver() {
+        JOptionPane.showMessageDialog(null,
+                "Game over",
+                "Press OK to start a new one",
+                JOptionPane.INFORMATION_MESSAGE);
+    }    /**
      * Init the game board
      */
     private void initGameBoard() {
