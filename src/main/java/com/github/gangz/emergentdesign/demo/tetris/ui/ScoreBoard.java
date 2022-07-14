@@ -10,10 +10,10 @@ public class ScoreBoard extends JLabel {
         this.setScore(0);
         parent.add(this);
         setBounds(left, top,width, 50);
-        this.setFont(new Font ("Arial",Font.BOLD, 32));
+        this.setFont(new Font ("Arial",Font.BOLD, 18));
     }
 
-    private void setScore(Integer score) {
+    public void setScore(Integer score) {
         this.setText("score: " + score.toString());
     }
 }

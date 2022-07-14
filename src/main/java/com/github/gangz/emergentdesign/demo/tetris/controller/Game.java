@@ -3,6 +3,8 @@ package com.github.gangz.emergentdesign.demo.tetris.controller;
 import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 
+import java.util.stream.IntStream;
+
 public class Game {
     private static final int HORIZONAL_SIZE = 8;
     private static final int VERTICAL_SIZE = 16;
@@ -12,6 +14,7 @@ public class Game {
     Block piledBlock;
     Block wall;
     ShapeFactory shapeFactory = new ShapeFactory();
+    private ScoreKeeper scoreKeeper = new ScoreKeeper();
 
     public Game(GameUI gameUI) {
         this.ui = gameUI;
@@ -71,7 +74,8 @@ public class Game {
         }
         if (isFallenBottom()){
             piledBlock.join(activeBlock);
-            piledBlock.eliminate(HORIZONAL_SIZE);
+            int rows = piledBlock.eliminate(HORIZONAL_SIZE);
+            scoreKeeper.count(rows);
             createActiveBlock();
             checkGameOver();
         }else{
@@ -135,5 +139,9 @@ public class Game {
     private boolean isReachRight() {
         return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.RIGHT) ||
                 CollisionDetector.isCollision(activeBlock,wall, Direction.RIGHT);
+    }
+
+    public Integer getScore() {
+        return scoreKeeper.score();
     }
 }
