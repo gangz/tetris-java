@@ -102,7 +102,7 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
                 controller.turn();
                 break;
             case KeyEvent.VK_ENTER:
-                controller.start();
+                controller.pauseToogle();
                 break;
         }
     }

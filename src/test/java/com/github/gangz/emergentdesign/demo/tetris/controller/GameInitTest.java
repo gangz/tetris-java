@@ -21,7 +21,6 @@ public class GameInitTest
     public void game_start_should_create_active_block()
     {
         Game game = new Game(new NullUI());
-        game.start();
         Assert.assertNotNull(game.activeBlock);
     }
 }

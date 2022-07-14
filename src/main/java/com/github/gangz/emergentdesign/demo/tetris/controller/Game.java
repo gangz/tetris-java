@@ -3,6 +3,7 @@ package com.github.gangz.emergentdesign.demo.tetris.controller;
 import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 
+import java.util.Timer;
 import java.util.stream.IntStream;
 
 public class Game {
@@ -26,6 +27,7 @@ public class Game {
         makeEmtpyPiledBlock();
         makeNextBlock();
         makeWall();
+        createActiveBlock();
         dataChanged();
     }
 
@@ -39,10 +41,6 @@ public class Game {
         wall.join(right);
     }
 
-    public void start() {
-        createActiveBlock();
-        dataChanged();
-    }
 
     private void dataChanged() {
         ui.dataChanged();
@@ -143,5 +141,29 @@ public class Game {
 
     public Integer getScore() {
         return scoreKeeper.score();
+    }
+
+    public void pauseToogle() {
+        if (isPaused()) {
+            resume();
+        } else {
+            pause();
+        }
+    }
+
+    boolean paused = true;
+    private Timer timer;
+
+    private void pause() {
+        paused = true;
+        timer.cancel();
+    }
+    private void resume() {
+        paused=false;
+        timer = new Timer();
+        timer.schedule(new BlockDownTask(this), 0,300);
+    }
+    private boolean isPaused() {
+        return paused;
     }
 }
