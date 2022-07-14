@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PredefinedShape extends Shape{
+    private final int[][][] data;
     int currentIndex = 0;
     List<List<Cell>> shapeList = new ArrayList<>();
     public PredefinedShape(int[][][]data){
+        this.data = data;
         currentIndex = 0;
         for (int index=0;index<data.length;index++) {
             List<Cell> shape = new ArrayList<>();
@@ -23,5 +25,9 @@ public class PredefinedShape extends Shape{
     public void rotate() {
         currentIndex = (currentIndex +1)% shapeList.size();
         super.shape= shapeList.get(currentIndex);
+    }
+
+    public PredefinedShape copy() {
+        return new PredefinedShape(this.data);
     }
 }

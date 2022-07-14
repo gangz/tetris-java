@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeFactory {
-    List<Shape> shapes = new ArrayList<>();
+    List<PredefinedShape> shapes = new ArrayList<>();
+
     public ShapeFactory(){
         shapes.add(makeI());
         shapes.add(makeZ());
@@ -19,21 +20,21 @@ public class ShapeFactory {
 
     public Shape makeRandom() {
         int index = (int) (Math.random()*shapes.size());
-        return shapes.get(index);
+        return shapes.get(index).copy();
     }
 
-    public Shape makeI(){
+    public PredefinedShape makeI(){
         return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{0,3}},
                         {{0,0},{1,0},{2,0},{3,0}}}
         );
     }
-    public Shape makeO(){
+    public PredefinedShape makeO(){
         return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{1,0},{1,1}}}
         );
     }
-    public Shape makeZ(){
+    public PredefinedShape makeZ(){
         return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{1,1},{1,2}},
                         {{0,1},{1,0},{1,1},{2,0}},
@@ -41,7 +42,7 @@ public class ShapeFactory {
                         {{0,1},{1,0},{1,1},{2,0}}}
         );
     }
-    public Shape makeS(){
+    public PredefinedShape makeS(){
         return new PredefinedShape(
                 new int[][][]{{{0,1},{0,2},{1,0},{1,1}},
                         {{0,0},{1,0},{1,1},{2,1}},
@@ -49,7 +50,7 @@ public class ShapeFactory {
                         {{0,0},{1,0},{1,1},{2,1}}}
         );
     }
-    public Shape makeL(){
+    public PredefinedShape makeL(){
         return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{1,2}},
                         {{0,1},{1,1},{2,1},{2,0}},
@@ -57,7 +58,7 @@ public class ShapeFactory {
                         {{0,0},{0,1},{1,0},{2,0}}}
         );
     }
-    public Shape makeJ(){
+    public PredefinedShape makeJ(){
         return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{1,0}},
                         {{0,0},{1,0},{2,0},{2,1}},
@@ -66,7 +67,7 @@ public class ShapeFactory {
         );
     }
 
-    public Shape makeT(){
+    public PredefinedShape makeT(){
         return new PredefinedShape(
                 new int[][][]{{{0,0},{0,1},{0,2},{1,1}},
                         {{0,0},{1,0},{2,0},{1,1}},
