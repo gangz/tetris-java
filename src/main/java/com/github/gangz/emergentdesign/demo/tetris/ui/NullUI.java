@@ -1,4 +1,4 @@
-package com.github.gangz.emergentdesign.demo.tetris;
+package com.github.gangz.emergentdesign.demo.tetris.ui;
 
 import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;

@@ -1,6 +1,6 @@
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
-import com.github.gangz.emergentdesign.demo.tetris.NullUI;
+import com.github.gangz.emergentdesign.demo.tetris.ui.NullUI;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
