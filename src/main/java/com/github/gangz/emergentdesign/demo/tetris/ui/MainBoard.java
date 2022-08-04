@@ -24,10 +24,12 @@ SOFTWARE.
 package com.github.gangz.emergentdesign.demo.tetris.ui;
 
 
+import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
+
 import javax.swing.*;
 
 public class MainBoard extends CellBoard{
     public MainBoard(JFrame parent, int left, int top) {
-        super(parent,left,top,8,16);
+        super(parent,left,top, Game.HORIZONAL_SIZE,Game.VERTICAL_SIZE);
     }
 }

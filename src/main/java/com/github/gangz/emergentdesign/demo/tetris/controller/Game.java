@@ -30,8 +30,8 @@ import java.util.Timer;
 import java.util.stream.IntStream;
 
 public class Game {
-    private static final int HORIZONAL_SIZE = 8;
-    private static final int VERTICAL_SIZE = 16;
+    public static final int HORIZONAL_SIZE = 10;
+    public static final int VERTICAL_SIZE = 20;
     private final GameUI ui;
     Block activeBlock;
     Block nextBlock;

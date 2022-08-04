@@ -33,7 +33,7 @@ import java.util.Arrays;
 
 public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     private static final int WINDOW_WIDTH = 600;
-    private static final int WINDOW_HEIGHT = 640;
+    private static final int WINDOW_HEIGHT = 800;
     private MainBoard mainBoard;
     private PreviewBoard previewBoard;
     private ScoreBoard scoreBoard;
