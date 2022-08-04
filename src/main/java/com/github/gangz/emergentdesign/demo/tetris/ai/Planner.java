@@ -5,7 +5,15 @@ import com.github.gangz.emergentdesign.demo.tetris.controller.CollisionDetector;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Direction;
 
 public class Planner {
-    public Action computeAction(Block activeBlock,Block piledBlock) {
+    private final int horizonalSize;
+    private final Parameter parameter;
+
+    public Planner(Parameter parameter,int horizonalSize) {
+        this.horizonalSize = horizonalSize;
+        this.parameter = parameter;
+    }
+
+    public Action computeAction(Block activeBlock, Block piledBlock) {
         Block testActiveBlock = activeBlock.deepClone();
         Block testPiledBlock = piledBlock.deepClone();
         while(!CollisionDetector.isCollision(testActiveBlock,testPiledBlock, Direction.DOWN)){

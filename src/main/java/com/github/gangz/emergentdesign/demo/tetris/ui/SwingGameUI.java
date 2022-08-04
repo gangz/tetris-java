@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.gangz.emergentdesign.demo.tetris.ui;
 
 import com.github.gangz.emergentdesign.demo.tetris.ai.AIPlayer;
+import com.github.gangz.emergentdesign.demo.tetris.ai.Parameter;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
 
 import javax.swing.*;
@@ -129,7 +130,7 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (aiPlayer==null)
-                    aiPlayer = new AIPlayer(controller);
+                    aiPlayer = new AIPlayer(new Parameter(), controller);
                 aiPlayer.pauseToogle();
                 releaseFocus();
             }

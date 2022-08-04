@@ -8,10 +8,11 @@ import java.util.Observer;
 public class AIPlayer implements Observer {
     private final Game controller;
     private boolean isActive = false;
-    private Planner planner = new Planner();
-    public AIPlayer(Game controller) {
+    private Planner planner;
+    public AIPlayer(Parameter parameter, Game controller) {
         this.controller = controller;
         controller.addObserver(this);
+        planner = new Planner(parameter, Game.HORIZONAL_SIZE);
     }
 
     public void pauseToogle() {
