@@ -91,4 +91,8 @@ public class Block {
         Optional<Cell> min = shape.getCells().stream().min(Comparator.comparingInt(Cell::getY));
         return max.get().y-min.get().y+1;
     }
+
+    public Block deepClone(){
+        return new Block(x,y,shape.deepClone());
+    }
 }

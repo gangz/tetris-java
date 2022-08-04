@@ -83,4 +83,11 @@ public class Shape{
         return rowCounts;
     }
 
+    public Shape deepClone() {
+        Shape clone = new Shape();
+        for (Cell cell:shape){
+            clone.shape.add(new Cell(cell.x,cell.y));
+        }
+        return clone;
+    }
 }
