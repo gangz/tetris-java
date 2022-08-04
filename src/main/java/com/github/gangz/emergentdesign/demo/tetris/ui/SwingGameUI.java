@@ -42,6 +42,7 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     private ScoreBoard scoreBoard;
     private Game controller;
     private JButton commandButton;
+    private AIPlayer aiPlayer;
 
     public SwingGameUI() {
         initGameBoard();
@@ -124,10 +125,11 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     private void createAIPlayerButton() {
         JButton command = new JButton("AI Player");
         add(command);
-        AIPlayer aiPlayer = new AIPlayer();
         command.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                if (aiPlayer==null)
+                    aiPlayer = new AIPlayer(controller);
                 aiPlayer.pauseToogle();
                 releaseFocus();
             }

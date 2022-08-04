@@ -26,10 +26,11 @@ package com.github.gangz.emergentdesign.demo.tetris.controller;
 import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 
+import java.util.Observable;
 import java.util.Timer;
 import java.util.stream.IntStream;
 
-public class Game {
+public class Game extends Observable {
     public static final int HORIZONAL_SIZE = 10;
     public static final int VERTICAL_SIZE = 20;
     private final GameUI ui;
@@ -108,6 +109,8 @@ public class Game {
     private void createActiveBlock() {
         this.activeBlock = nextBlock;
         makeNextBlock();
+        this.setChanged();
+        notifyObservers(new BlockCreatedEvent());
     }
 
 
