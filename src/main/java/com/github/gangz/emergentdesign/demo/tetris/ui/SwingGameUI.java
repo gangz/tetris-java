@@ -27,6 +27,8 @@ import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
@@ -70,8 +72,11 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
         createMainBoard();
         createPreviewBoard();
         createScoreBoard();
+        createStartStopButton();
         this.setVisible(true);
+        requestFocus();
     }
+
 
 
     private void initWindow() {
@@ -96,6 +101,25 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
                 mainBoard.getX()+mainBoard.getWidth()+40,
                 previewBoard.getY()+previewBoard.getHeight() +40,
                 previewBoard.getWidth());
+    }
+
+    private void createStartStopButton() {
+        JButton command = new JButton("Start/Stop");
+        add(command);
+        command.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                controller.pauseToogle();
+                releaseFocus();
+            }
+        });
+        command.setBounds(scoreBoard.getX(), scoreBoard.getY()+scoreBoard.getHeight()+40,
+                scoreBoard.getWidth(),60);
+        command.setFont(new Font ("Arial",Font.BOLD, 18));
+    }
+
+    private void releaseFocus() {
+        requestFocus();
     }
 
     @Override
