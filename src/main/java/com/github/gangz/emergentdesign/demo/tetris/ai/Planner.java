@@ -45,7 +45,7 @@ public class Planner {
             public int compare(Data o1, Data o2) {
                 if (Math.abs(o1.score-o2.score)>1e-6)
                     return (o1.score-o2.score)>0?-1:1;
-                return o2.move-o1.move;
+                return o1.move-o2.move;
             }
         });
         Data result = dataList.get(0);
