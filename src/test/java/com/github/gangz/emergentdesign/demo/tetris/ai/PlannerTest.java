@@ -47,18 +47,27 @@ public class PlannerTest
     @Mock BlockJoiner blockJoiner;
     @InjectMocks Planner planner = new Planner(new Parameter(),8);
     @Test
-    public void should_return_1move_0_turn()
+    public void should_return_1move_0_turn_when_height_diff()
     {
-        //Planner planner = new Planner(new Parameter(),8);
         Block activeBlock = Mockito.mock(Block.class);
         Block piledBlock = Mockito.mock(Block.class);
-        when(piledBlock.height()).thenReturn(0).thenReturn(1).thenReturn(0);
+        when(piledBlock.height()).thenReturn(1).thenReturn(0).thenReturn(1);
         when(blockJoiner.joinBlock(any(),any(),any(),any())).thenReturn(piledBlock);
         Action action = planner.computeAction(activeBlock, piledBlock);
         assertEquals(1,action.moveDistance);
     }
 
-
+    @Test
+    public void should_return_1move_0_turn_when_row_diff()
+    {
+        Block activeBlock = Mockito.mock(Block.class);
+        Block piledBlock = Mockito.mock(Block.class);
+        when(piledBlock.height()).thenReturn(0);
+        when(piledBlock.eliminate(eq(planner.horizonalSize))).thenReturn(0).thenReturn(1).thenReturn(0);
+        when(blockJoiner.joinBlock(any(),any(),any(),any())).thenReturn(piledBlock);
+        Action action = planner.computeAction(activeBlock, piledBlock);
+        assertEquals(1,action.moveDistance);
+    }
 }
 
 

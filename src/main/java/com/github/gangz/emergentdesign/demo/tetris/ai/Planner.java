@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Planner {
     public static final int TURN_TIMES = 4;
-    private final int horizonalSize;
+    public final int horizonalSize;
     private final Parameter parameter;
     private BlockJoiner blockJoiner;
 
@@ -43,8 +43,8 @@ public class Planner {
             @Override
             public int compare(Data o1, Data o2) {
                 if (Math.abs(o1.score-o2.score)>1e-6)
-                    return (o1.score-o2.score)>0?1:-1;
-                return o1.move-o2.move;
+                    return (o1.score-o2.score)>0?-1:1;
+                return o2.move-o1.move;
             }
         });
         Data result = dataList.get(0);
@@ -52,6 +52,7 @@ public class Planner {
     }
 
     private double evaluate(Block joinedBlock) {
-        return parameter.heightWeight*joinedBlock.height();
+        return parameter.heightWeight*joinedBlock.height()+
+                parameter.removeLinesWeight * joinedBlock.eliminate(horizonalSize);
     }
 }
