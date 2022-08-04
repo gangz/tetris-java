@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Planner {
+    public static final int TURN_TIMES = 4;
     private final int horizonalSize;
     private final Parameter parameter;
     private BlockJoiner blockJoiner;
@@ -31,8 +32,8 @@ public class Planner {
 
     public Action computeAction(Block activeBlock, Block piledBlock) {
         List<Data> dataList = new ArrayList<>();
-        for (int turn=0;turn<4;turn++) {
-            for (int move=0;move<8;move++) {
+        for (int turn = 0; turn< TURN_TIMES; turn++) {
+            for (int move=0;move<horizonalSize;move++) {
                 Block joinedBlock = blockJoiner.joinBlock(activeBlock, piledBlock, 0, 0);
                 double score = evaluate(joinedBlock);
                 dataList.add(new Data(move,turn,score));
@@ -47,7 +48,6 @@ public class Planner {
             }
         });
         Data result = dataList.get(0);
-
         return new Action(result.move,result.turn);
     }
 
