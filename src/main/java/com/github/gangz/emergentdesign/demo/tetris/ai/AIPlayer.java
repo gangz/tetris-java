@@ -10,6 +10,7 @@ public class AIPlayer implements Observer {
     private final Game controller;
     private int moveDistance = 2;
     private int turnTimes = 1;
+    private boolean isActive = false;
 
     public AIPlayer(Game controller) {
         this.controller = controller;
@@ -17,11 +18,13 @@ public class AIPlayer implements Observer {
     }
 
     public void pauseToogle() {
+        isActive = !isActive;
     }
 
     @Override
     public void update(Observable observable, Object event) {
-        if (event instanceof  BlockCreatedEvent)
+        if (!isActive) return;
+        if (event instanceof BlockCreatedEvent)
             newBlockCreated();
     }
 
