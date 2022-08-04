@@ -45,7 +45,8 @@ import static org.mockito.Mockito.when;
 public class PlannerTest
 {
     @Mock BlockJoiner blockJoiner;
-    @InjectMocks Planner planner = new Planner(new Parameter(),8);
+    @Mock Block wall;
+    @InjectMocks Planner planner = new Planner(new Parameter(),8, wall);
     @Test
     public void should_return_1move_0_turn_when_height_diff()
     {

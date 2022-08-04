@@ -43,7 +43,7 @@ public class ShapeFactory {
 
     public Shape makeRandom() {
         int index = (int) (Math.random()*shapes.size());
-        return shapes.get(index).copy();
+        return shapes.get(index).deepClone();
     }
 
     public PredefinedShape makeI(){

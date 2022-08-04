@@ -89,6 +89,8 @@ public class Game extends Observable {
         return piledBlock;
     }
 
+    public Block getWall() { return wall;}
+
     public void moveDown() {
         if (activeBlock==null) {
             return;
@@ -123,7 +125,7 @@ public class Game extends Observable {
         this.initGame();
     }
 
-    public void moveLeft() {
+    synchronized public void moveLeft() {
         if (activeBlock==null)
             return;
         if (isReachLeft())
@@ -132,7 +134,7 @@ public class Game extends Observable {
         dataChanged();
     }
 
-    public void moveRight() {
+    synchronized public void moveRight() {
         if (activeBlock==null)
             return;
         if (isReachRight())
@@ -142,7 +144,7 @@ public class Game extends Observable {
         dataChanged();
     }
 
-    public void turn() {
+    synchronized public void turn() {
         if (activeBlock==null)
             return;
         activeBlock.rotate();
@@ -191,4 +193,5 @@ public class Game extends Observable {
     private boolean isPaused() {
         return paused;
     }
+
 }

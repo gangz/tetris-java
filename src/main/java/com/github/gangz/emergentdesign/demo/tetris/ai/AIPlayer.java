@@ -12,7 +12,8 @@ public class AIPlayer implements Observer {
     public AIPlayer(Parameter parameter, Game controller) {
         this.controller = controller;
         controller.addObserver(this);
-        planner = new Planner(parameter, Game.HORIZONAL_SIZE);
+        planner = new Planner(parameter, Game.HORIZONAL_SIZE,
+                controller.getWall());
     }
 
     public void pauseToogle() {

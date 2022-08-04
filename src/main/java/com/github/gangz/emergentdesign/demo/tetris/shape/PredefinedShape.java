@@ -50,7 +50,8 @@ public class PredefinedShape extends Shape{
         super.shape= shapeList.get(currentIndex);
     }
 
-    public PredefinedShape copy() {
+    @Override
+    public PredefinedShape deepClone() {
         return new PredefinedShape(this.data);
     }
 }

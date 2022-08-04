@@ -14,9 +14,10 @@ public class Planner {
     private final Parameter parameter;
     private BlockJoiner blockJoiner;
 
-    public Planner(Parameter parameter,int horizonalSize) {
+    public Planner(Parameter parameter,int horizonalSize, Block wall) {
         this.horizonalSize = horizonalSize;
         this.parameter = parameter;
+        blockJoiner = new BlockJoiner(wall);
     }
 
     class Data {
@@ -34,7 +35,7 @@ public class Planner {
         List<Data> dataList = new ArrayList<>();
         for (int turn = 0; turn< TURN_TIMES; turn++) {
             for (int move=0;move<horizonalSize;move++) {
-                Block joinedBlock = blockJoiner.joinBlock(activeBlock, piledBlock, 0, 0);
+                Block joinedBlock = blockJoiner.joinBlock(activeBlock, piledBlock, move, turn);
                 double score = evaluate(joinedBlock);
                 dataList.add(new Data(move,turn,score));
             }
