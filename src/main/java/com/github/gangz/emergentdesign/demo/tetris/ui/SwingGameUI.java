@@ -23,6 +23,7 @@ SOFTWARE.
  */
 package com.github.gangz.emergentdesign.demo.tetris.ui;
 
+import com.github.gangz.emergentdesign.demo.tetris.ai.AIPlayer;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
 
 import javax.swing.*;
@@ -40,6 +41,7 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     private PreviewBoard previewBoard;
     private ScoreBoard scoreBoard;
     private Game controller;
+    private JButton commandButton;
 
     public SwingGameUI() {
         initGameBoard();
@@ -73,6 +75,7 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
         createPreviewBoard();
         createScoreBoard();
         createStartStopButton();
+        createAIPlayerButton();
         this.setVisible(true);
         requestFocus();
     }
@@ -104,19 +107,36 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     }
 
     private void createStartStopButton() {
-        JButton command = new JButton("Start/Stop");
-        add(command);
-        command.addActionListener(new ActionListener() {
+        commandButton = new JButton("Start/Stop");
+        add(commandButton);
+        commandButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 controller.pauseToogle();
                 releaseFocus();
             }
         });
-        command.setBounds(scoreBoard.getX(), scoreBoard.getY()+scoreBoard.getHeight()+40,
+        commandButton.setBounds(scoreBoard.getX(), scoreBoard.getY()+scoreBoard.getHeight()+40,
                 scoreBoard.getWidth(),60);
+        commandButton.setFont(new Font ("Arial",Font.BOLD, 18));
+    }
+
+    private void createAIPlayerButton() {
+        JButton command = new JButton("AI Player");
+        add(command);
+        AIPlayer aiPlayer = new AIPlayer();
+        command.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                aiPlayer.pauseToogle();
+                releaseFocus();
+            }
+        });
+        command.setBounds(commandButton.getX(), commandButton.getY()+commandButton.getHeight()+40,
+                commandButton.getWidth(),60);
         command.setFont(new Font ("Arial",Font.BOLD, 18));
     }
+
 
     private void releaseFocus() {
         requestFocus();
