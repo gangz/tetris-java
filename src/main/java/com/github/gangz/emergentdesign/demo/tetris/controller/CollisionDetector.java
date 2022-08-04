@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionDetector {
-    public static boolean isCollision(Block moveBlock, Block stillBlock, Direction direction) {
+    public boolean isCollision(Block moveBlock, Block stillBlock, Direction direction) {
         int[][] offsets = {{0,1},{-1,0},{1,0}};
         int index = direction.value-Direction.DOWN.value;
         int[] offset = offsets[index];

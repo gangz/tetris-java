@@ -37,7 +37,7 @@ public class CollisionDetectorTest
     {
         Block moveBlock = new Block(0,0,factory.makeO());
         Block stillBlock = new Block(0,3,factory.makeO());
-        assertFalse(CollisionDetector.isCollision(moveBlock,stillBlock,Direction.DOWN));
+        assertFalse(new CollisionDetector().isCollision(moveBlock,stillBlock,Direction.DOWN));
     }
 
     @Test
@@ -45,6 +45,6 @@ public class CollisionDetectorTest
     {
         Block moveBlock = new Block(0,0,factory.makeO());
         Block stillBlock = new Block(0,2,factory.makeO());
-        assertTrue(CollisionDetector.isCollision(moveBlock,stillBlock,Direction.DOWN));
+        assertTrue(new CollisionDetector().isCollision(moveBlock,stillBlock,Direction.DOWN));
     }
 }

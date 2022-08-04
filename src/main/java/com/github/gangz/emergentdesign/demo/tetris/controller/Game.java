@@ -28,7 +28,6 @@ import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 
 import java.util.Observable;
 import java.util.Timer;
-import java.util.stream.IntStream;
 
 public class Game extends Observable {
     public static final int HORIZONAL_SIZE = 10;
@@ -40,7 +39,7 @@ public class Game extends Observable {
     Block wall;
     ShapeFactory shapeFactory = new ShapeFactory();
     private ScoreKeeper scoreKeeper = new ScoreKeeper();
-
+    private CollisionDetector collisionDetector = new CollisionDetector();
     public Game(GameUI gameUI) {
         this.ui = gameUI;
         ui.setController(this);
@@ -151,18 +150,18 @@ public class Game extends Observable {
     }
 
     private boolean isFallenBottom() {
-        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.DOWN) ||
-                CollisionDetector.isCollision(activeBlock,wall, Direction.DOWN);
+        return collisionDetector.isCollision(activeBlock,piledBlock, Direction.DOWN) ||
+                collisionDetector.isCollision(activeBlock,wall, Direction.DOWN);
     }
 
     private boolean isReachLeft() {
-        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.LEFT) ||
-                CollisionDetector.isCollision(activeBlock,wall, Direction.LEFT);
+        return collisionDetector.isCollision(activeBlock,piledBlock, Direction.LEFT) ||
+                collisionDetector.isCollision(activeBlock,wall, Direction.LEFT);
     }
 
     private boolean isReachRight() {
-        return CollisionDetector.isCollision(activeBlock,piledBlock, Direction.RIGHT) ||
-                CollisionDetector.isCollision(activeBlock,wall, Direction.RIGHT);
+        return collisionDetector.isCollision(activeBlock,piledBlock, Direction.RIGHT) ||
+                collisionDetector.isCollision(activeBlock,wall, Direction.RIGHT);
     }
 
     public Integer getScore() {
