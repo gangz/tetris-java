@@ -26,10 +26,7 @@ package com.github.gangz.emergentdesign.demo.tetris.shape;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Cell;
 
 import java.rmi.UnexpectedException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Shape{
     protected List<Cell> shape =new ArrayList<>();
@@ -89,5 +86,17 @@ public class Shape{
             clone.shape.add(new Cell(cell.x,cell.y));
         }
         return clone;
+    }
+
+    public int height() {
+        Optional<Cell> max = shape.stream().max(Comparator.comparingInt(Cell::getY));
+        Optional<Cell> min = shape.stream().min(Comparator.comparingInt(Cell::getY));
+        return max.get().y-min.get().y+1;
+    }
+
+    public int width() {
+        Optional<Cell> max = shape.stream().max(Comparator.comparingInt(Cell::getX));
+        Optional<Cell> min = shape.stream().min(Comparator.comparingInt(Cell::getX));
+        return max.get().x-min.get().x+1;
     }
 }

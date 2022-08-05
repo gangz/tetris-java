@@ -87,9 +87,7 @@ public class Block {
     }
 
     public int height() {
-        Optional<Cell> max = shape.getCells().stream().max(Comparator.comparingInt(Cell::getY));
-        Optional<Cell> min = shape.getCells().stream().min(Comparator.comparingInt(Cell::getY));
-        return max.get().y-min.get().y+1;
+        return shape.height();
     }
 
     public Block deepClone(){
