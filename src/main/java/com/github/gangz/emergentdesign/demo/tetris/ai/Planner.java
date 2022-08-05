@@ -53,7 +53,11 @@ public class Planner {
     }
 
     private double evaluate(Block joinedBlock) {
+        int eliminatedRows = joinedBlock.eliminate(horizonalSize);
+        ShapeFeature feature = new ShapeFeature(joinedBlock.getCells());
         return parameter.heightWeight*joinedBlock.height()+
-                parameter.removeLinesWeight * joinedBlock.eliminate(horizonalSize);
+                parameter.removeLinesWeight * eliminatedRows+
+                parameter.rowTransitionWeight*feature.rowTransitions()+
+                parameter.columnTransitionWeight* feature.columnTransitions();
     }
 }
