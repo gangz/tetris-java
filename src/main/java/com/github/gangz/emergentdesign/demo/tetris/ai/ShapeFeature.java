@@ -3,6 +3,7 @@ package com.github.gangz.emergentdesign.demo.tetris.ai;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Cell;
 import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -49,4 +50,35 @@ public class ShapeFeature {
         return value;
     }
 
+    public int holes() {
+        int holes = 0;
+        for (int x=0;x<width;x++){
+            int y=0;
+            while(y<height && data[x][y]==0){
+                y++;
+            }
+            for (;y<height;y++){
+                if (data[x][y]==0)
+                    holes++;
+            }
+        }
+        return holes;
+    }
+
+    public int bumpiness() {
+        int [] heights = new int[width+2]; //with wall
+        heights[0]=height;
+        heights[width+1]=height;
+        for (int x=0;x<width;x++){
+            int y=0;
+            while(y<height && data[x][y]==0){
+                y++;
+            }
+            heights[x+1] = height-y;
+        }
+        int value = 0;
+        for (int x=1;x<width+2;x++)
+            value += Math.abs(heights[x]-heights[x-1]);
+        return value;
+    }
 }

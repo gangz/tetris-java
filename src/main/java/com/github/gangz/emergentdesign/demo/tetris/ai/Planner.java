@@ -58,6 +58,8 @@ public class Planner {
         return parameter.heightWeight*joinedBlock.height()+
                 parameter.removeLinesWeight * eliminatedRows+
                 parameter.rowTransitionWeight*feature.rowTransitions()+
-                parameter.columnTransitionWeight* feature.columnTransitions();
+                parameter.columnTransitionWeight* feature.columnTransitions()+
+                parameter.holeWeight * feature.holes()+
+                parameter.bumpWeight*feature.bumpiness();
     }
 }

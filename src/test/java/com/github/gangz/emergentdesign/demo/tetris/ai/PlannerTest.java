@@ -24,10 +24,6 @@ SOFTWARE.
 package com.github.gangz.emergentdesign.demo.tetris.ai;
 
 import com.github.gangz.emergentdesign.demo.tetris.controller.Block;
-import com.github.gangz.emergentdesign.demo.tetris.controller.Cell;
-import com.github.gangz.emergentdesign.demo.tetris.controller.CollisionDetector;
-import com.github.gangz.emergentdesign.demo.tetris.controller.Direction;
-import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
