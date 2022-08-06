@@ -13,8 +13,14 @@ public class AutoGame implements GameUI, Observer {
     Game game = null;
     Integer score = 0;
     Integer blocks = 500;
+    private Parameter parameter;
+
+    public AutoGame(Parameter parameter) {
+        this.parameter = parameter;
+    }
+
     public static void main(String[] args){
-        AutoGame game = new AutoGame();
+        AutoGame game = new AutoGame(new Parameter());
         game.play();
         System.out.println(game.score);
     }
@@ -36,7 +42,7 @@ public class AutoGame implements GameUI, Observer {
     public void play(){
         game = new Game(this);
         game.addObserver(this);
-        AIPlayer player = new AIPlayer(new Parameter(),game);
+        AIPlayer player = new AIPlayer(parameter,game);
         player.start();
         while(this.blocks>0){
             game.moveDown();
