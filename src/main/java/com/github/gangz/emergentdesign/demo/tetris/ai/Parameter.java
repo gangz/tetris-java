@@ -18,4 +18,16 @@ public class Parameter {
         this.holeWeight = holeWeight;
         this.bumpWeight = bumpWeight;
     }
+
+    @Override
+    public String toString() {
+        return "Parameter{" +
+                "heightWeight=" + heightWeight +
+                ", removeLinesWeight=" + removeLinesWeight +
+                ", rowTransitionWeight=" + rowTransitionWeight +
+                ", columnTransitionWeight=" + columnTransitionWeight +
+                ", holeWeight=" + holeWeight +
+                ", bumpWeight=" + bumpWeight +
+                '}';
+    }
 }

@@ -11,16 +11,17 @@ import java.util.Observer;
 
 public class AutoGame implements GameUI, Observer {
     Game game = null;
-    Integer score = 0;
-    Integer blocks = 500;
+    int score = 0;
+    int blocks = 500;
     private Parameter parameter;
 
-    public AutoGame(Parameter parameter) {
+    public AutoGame(Parameter parameter, int max_blocks) {
         this.parameter = parameter;
+        this.blocks = max_blocks;
     }
 
     public static void main(String[] args){
-        AutoGame game = new AutoGame(new Parameter());
+        AutoGame game = new AutoGame(new Parameter(),500);
         game.play();
         System.out.println(game.score);
     }
