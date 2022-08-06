@@ -20,6 +20,10 @@ public class AIPlayer implements Observer {
         isActive = !isActive;
     }
 
+    public void start() {
+            isActive=true;
+    }
+
     @Override
     public void update(Observable observable, Object event) {
         if (!isActive) return;

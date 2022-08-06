@@ -151,12 +151,7 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_LEFT:
@@ -175,5 +170,9 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
                 controller.pauseToogle();
                 break;
         }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }

@@ -185,13 +185,13 @@ public class Game extends Observable {
         paused = true;
         timer.cancel();
     }
+
     private void resume() {
         paused=false;
         timer = new Timer();
-        timer.schedule(new BlockDownTask(this), 0,1);
+        timer.schedule(new BlockDownTask(this), 0,300);
     }
     private boolean isPaused() {
         return paused;
     }
-
 }

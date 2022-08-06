@@ -5,6 +5,17 @@ public class Parameter {
     public double removeLinesWeight  = 8;
     public double rowTransitionWeight  = 0;
     public double columnTransitionWeight = 0 ;
-    public double holeWeight  = -7;
-    public double bumpWeight = -3;
+    public double holeWeight  = -20;
+    public double bumpWeight = -7;
+    public Parameter(){
+    }
+    public Parameter(double heightWeight,double removeLinesWeight,double rowTransitionWeight,
+                     double columnTransitionWeight,double holeWeight,double bumpWeight){
+        this.heightWeight = heightWeight;
+        this.removeLinesWeight = removeLinesWeight;
+        this.rowTransitionWeight = rowTransitionWeight;
+        this.columnTransitionWeight = columnTransitionWeight;
+        this.holeWeight = holeWeight;
+        this.bumpWeight = bumpWeight;
+    }
 }
