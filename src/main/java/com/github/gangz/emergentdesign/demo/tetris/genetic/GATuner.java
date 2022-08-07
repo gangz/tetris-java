@@ -62,13 +62,14 @@ public class GATuner {
 
     private void computeFitness() {
         population.stream().forEach(individual->{
-            IntStream.range(0, TRY_TIMES).forEach(times->{
-                AutoGame game = new AutoGame(individual.parameter, MAX_BLOCKS);
-                System.out.println("[game start] score:" + game.score + "parameter:" + individual.parameter);
-                game.play();
-                System.out.println("[game end] score:" + game.score + "parameter:" + individual.parameter);
-                individual.fitness += game.score;
-            });
+            individual.fitness =
+                IntStream.range(0, TRY_TIMES).asLongStream().mapToInt(times->{
+                    AutoGame game = new AutoGame(individual.parameter, MAX_BLOCKS);
+                    //System.out.println("[game start] score:" + game.score + "parameter:" + individual.parameter);
+                    game.play();
+                    //System.out.println("[game end] score:" + game.score + "parameter:" + individual.parameter);
+                    return game.score;
+                }).sum();
         });
         population.sort(new Comparator<Data>() {
             @Override
