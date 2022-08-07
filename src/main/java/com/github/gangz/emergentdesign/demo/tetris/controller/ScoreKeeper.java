@@ -31,13 +31,13 @@ public class ScoreKeeper {
                 score+=10;
                 break;
             case 2:
-                score+=30;
+                score+=10;
                 break;
             case 3:
-                score+=50;
+                score+=10;
                 break;
             case 4:
-                score+=100;
+                score+=10;
                 break;
             case 0:
                 break;
