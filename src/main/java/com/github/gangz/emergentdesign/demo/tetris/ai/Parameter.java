@@ -22,12 +22,12 @@ public class Parameter {
     }
 
     private void normalize() {
-        double norm = heightWeight +
-                removeLinesWeight +
-                rowTransitionWeight+
-                columnTransitionWeight+
-                holeWeight +
-                bumpWeight;
+        double norm = Math.abs(heightWeight) +
+                    Math.abs(removeLinesWeight) +
+                    Math.abs(rowTransitionWeight)+
+                    Math.abs(columnTransitionWeight)+
+                    Math.abs(holeWeight) +
+                    Math.abs(bumpWeight);
         heightWeight/=norm;
         removeLinesWeight/=norm;
         rowTransitionWeight/=norm;
