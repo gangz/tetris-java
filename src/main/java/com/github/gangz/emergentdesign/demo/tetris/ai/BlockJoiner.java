@@ -14,10 +14,14 @@ public class BlockJoiner {
     public Block joinBlock(Block activeBlock, Block piledBlock, Integer move, Integer turn) {
         Block testActiveBlock = activeBlock.deepClone();
         Block testPiledBlock = piledBlock.deepClone();
-        for (int i=0;i<move;i++)
-            testActiveBlock.moveRight();
         for (int j=0;j<turn;j++)
             testActiveBlock.rotate();
+        for (int i=0;i<move;i++) {
+            if(new CollisionDetector().isCollision(testActiveBlock,wall,Direction.RIGHT)){
+                return null;
+            }
+            testActiveBlock.moveRight();
+        }
         while(!new CollisionDetector().isCollision(testActiveBlock,testPiledBlock, Direction.DOWN) &&
               ! new CollisionDetector().isCollision(testActiveBlock,wall,Direction.DOWN)){
             testActiveBlock.moveDown();

@@ -36,8 +36,10 @@ public class Planner {
         for (int turn = 0; turn< TURN_TIMES; turn++) {
             for (int move=0;move<horizonalSize;move++) {
                 Block joinedBlock = blockJoiner.joinBlock(activeBlock, piledBlock, move, turn);
-                double score = evaluate(joinedBlock);
-                dataList.add(new Data(move,turn,score));
+                if (joinedBlock!=null) {
+                    double score = evaluate(joinedBlock);
+                    dataList.add(new Data(move, turn, score));
+                }
             }
         }
         dataList.sort(new Comparator<Data>() {
@@ -54,7 +56,7 @@ public class Planner {
 
     private double evaluate(Block joinedBlock) {
         int eliminatedRows = joinedBlock.eliminate(horizonalSize);
-        ShapeFeature feature = new ShapeFeature(joinedBlock.getCells());
+        ShapeFeature feature = new ShapeFeature(joinedBlock.getCells(),horizonalSize);
         return parameter.removeLinesWeight * eliminatedRows
                 -parameter.heightWeight*joinedBlock.height()
                 -parameter.rowTransitionWeight*feature.rowTransitions()
