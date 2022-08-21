@@ -7,11 +7,12 @@ import java.util.Comparator;
 import java.util.stream.IntStream;
 
 public class GATuner {
-
+    public static final int INIT_SIZE = 4000;
     public static final int SIZE = 1000;
-    public static final int MAX_BLOCKS = 500;
+    public static final int MAX_BLOCKS = 1000;
     public static final int TRY_TIMES = 5;
     public static final double MUTATION_VAL = 0.2;
+    public static final double MUTATION_PROBABILITY = 0.05;
 
     public static void main(String[] arg){
         new GATuner().tune();
@@ -29,9 +30,9 @@ public class GATuner {
 
     public Parameter tune() {
         /*
-        1. create 1000 individuals first, with random parameter
-        2. compute fitness: for each individual, run game 5 times,
-           each game with maximum 500 pieces; the score is the fitness.
+        1. create INIT_SIZE individuals first, with random parameter
+        2. compute fitness: for each individual, run game TRY_TIMES times,
+           each game with maximum MAX_BLOCK pieces; the score is the fitness.
         3. how to produce offspring:
            1) select the best 20% into next offspring
            2) cross over to produce 75% by roulette selected parent
@@ -39,7 +40,7 @@ public class GATuner {
         4. goto step 2; exit after 100 generation ;
         * */
         initPopulation();
-        for (int generation=0;generation<500;generation++){
+        for (int generation=0;generation<MAX_BLOCKS;generation++){
             computeFitness();
             Data best = population.get(0);
             System.out.println("score:"+best.fitness+"param:"+best.parameter);
@@ -50,7 +51,7 @@ public class GATuner {
 
     private void initPopulation() {
         population.clear();
-        IntStream.range(0, SIZE).forEach(i->{
+        IntStream.range(0, INIT_SIZE).forEach(i->{
             Parameter parameter = new Parameter(Math.random(),
                     Math.random(),
                     Math.random(),
@@ -61,15 +62,13 @@ public class GATuner {
     }
 
     private void computeFitness() {
-        population.stream().forEach(individual->{
+        population.parallelStream().forEach(individual->{
             individual.fitness =
                 IntStream.range(0, TRY_TIMES).asLongStream().mapToInt(times->{
                     AutoGame game = new AutoGame(individual.parameter, MAX_BLOCKS);
-                    //System.out.println("[game start] score:" + game.score + "parameter:" + individual.parameter);
                     game.play();
-                    //System.out.println("[game end] score:" + game.score + "parameter:" + individual.parameter);
                     return game.score;
-                }).sum();
+                }).sum()+10;//guarantee  fitness large than zero
         });
         population.sort(new Comparator<Data>() {
             @Override
@@ -84,7 +83,7 @@ public class GATuner {
         next.addAll(population.subList(0, (int) (SIZE*0.2)));
         for (int i=0;i<SIZE*0.8;i++){
             Data individual=crossOver();
-            if (Math.random()<0.05)
+            if (Math.random()< MUTATION_PROBABILITY)
                 mutation(individual);
             next.add(individual);
         }
