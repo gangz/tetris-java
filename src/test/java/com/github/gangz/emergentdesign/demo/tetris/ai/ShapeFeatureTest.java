@@ -22,12 +22,6 @@ public class ShapeFeatureTest {
     }
 
     @Test
-    public void testRowTransitions_x_is_6(){
-        Shape shape = makeXShape();
-        assertEquals(6,new ShapeFeature(shape.getCells(),3).rowTransitions());
-    }
-
-    @Test
     public void testHole_of_x_is_3(){
         Shape shape = makeXShape();
         assertEquals(3,new ShapeFeature(shape.getCells(),3).holes());

@@ -32,17 +32,6 @@ public class ShapeFeature {
 
     public int columnTransitions(){
         int value = 0;
-        for (int x=1;x<width;x++){
-            for (int y=0;y<height;y++){
-                if (data[x][y]!=data[x-1][y])
-                    value++;
-            }
-        }
-        return value;
-    }
-
-    public int rowTransitions(){
-        int value = 0;
         for (int x=0;x<width;x++){
             for (int y=1;y<height;y++){
                 if (data[x][y]!=data[x][y-1])
