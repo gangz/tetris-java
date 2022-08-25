@@ -81,4 +81,28 @@ public class ShapeFeature {
             value += Math.abs(heights[x]-heights[x-1]);
         return value;
     }
+
+    public int well() {
+        int value = 0;
+        for (int x=0;x<width;x++){
+            for (int y=0;y<height;y++){
+                if (data[x][y]==0) {
+                    if (x == 0) {
+                        if (data[x + 1][y] == 1) {
+                            value++;
+                        }
+                    } else if (x == width - 1) {
+                        if (data[x - 1][y] == 1) {
+                            value++;
+                        }
+                    } else {
+                        if (data[x - 1][y] == 1 && data[x + 1][y] == 1) {
+                            value++;
+                        }
+                    }
+                }
+            }
+        }
+        return value;
+    }
 }

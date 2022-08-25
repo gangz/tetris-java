@@ -33,8 +33,20 @@ public class ShapeFeatureTest {
         assertEquals(3,new ShapeFeature(shape.getCells(),3).holes());
     }
 
+    @Test
+    public void testBump_of_x_is_2_in_case_of_width_3(){
+        Shape shape = makeXShape();
+        assertEquals(2,new ShapeFeature(shape.getCells(),3).bumpiness());
+    }
+
+    @Test
+    public void testBump_of_x_is_5_in_case_of_width_3(){
+        Shape shape = makeXShape();
+        assertEquals(5,new ShapeFeature(shape.getCells(),4).bumpiness());
+    }
     private Shape makeXShape() {
     /*
+       1 0 1
        1 0 1
        0 1 0
        1 0 1

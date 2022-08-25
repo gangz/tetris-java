@@ -37,7 +37,7 @@ public class Planner {
             for (int move=0;move<horizonalSize;move++) {
                 Block joinedBlock = blockJoiner.joinBlock(activeBlock, piledBlock, move, turn);
                 if (joinedBlock!=null) {
-                    double score = evaluate(joinedBlock);
+                    double score = evaluate(piledBlock,joinedBlock);
                     dataList.add(new Data(move, turn, score));
                 }
             }
@@ -54,14 +54,15 @@ public class Planner {
         return new Action(result.move,result.turn);
     }
 
-    private double evaluate(Block joinedBlock) {
+    private double evaluate(Block piledBlock, Block joinedBlock) {
         int eliminatedRows = joinedBlock.eliminate(horizonalSize);
-        ShapeFeature feature = new ShapeFeature(joinedBlock.getCells(),horizonalSize);
+        ShapeFeature feature_current = new ShapeFeature(piledBlock.getCells(),horizonalSize);
+        ShapeFeature feature_new = new ShapeFeature(joinedBlock.getCells(),horizonalSize);
         return parameter.removeLinesWeight * eliminatedRows
-                -parameter.heightWeight*joinedBlock.height()
-                -parameter.rowTransitionWeight*feature.rowTransitions()
-                -parameter.columnTransitionWeight* feature.columnTransitions()
-                -parameter.holeWeight * feature.holes()
-                -parameter.bumpWeight*feature.bumpiness();
+                -parameter.heightWeight*(joinedBlock.height()-piledBlock.height())
+                -parameter.rowTransitionWeight*(feature_new.rowTransitions())
+                -parameter.columnTransitionWeight* (feature_new.columnTransitions())
+                -parameter.holeWeight * (feature_new.holes()-feature_current.holes())
+                -parameter.bumpWeight*(feature_new.bumpiness()+feature_new.well());
     }
 }

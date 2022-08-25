@@ -1,12 +1,14 @@
 package com.github.gangz.emergentdesign.demo.tetris.ai;
 
-public class Parameter {
-    public double heightWeight = 0.40015474789845895;
-    public double removeLinesWeight  = 0.6430262003488009;
-    public double rowTransitionWeight  = 0.19746275594503213;
-    public double columnTransitionWeight = 0.08417740442485587 ;
-    public double holeWeight  = 0.6132016035229552;
-    public double bumpWeight = 0.065573633688152;
+import java.io.Serializable;
+
+public class Parameter implements Serializable {
+    public double heightWeight = 0.018541897930859582;
+    public double removeLinesWeight  = 0.5073339640502378;
+    public double rowTransitionWeight  = 0.010956114762031389;
+    public double columnTransitionWeight = 0.29008357836920445 ;
+    public double holeWeight  = 0.8089926136397839;
+    public double bumpWeight = 0.05942120100017882;
 
     public Parameter(){
     }
@@ -22,12 +24,12 @@ public class Parameter {
     }
 
     private void normalize() {
-        double norm = Math.abs(heightWeight) +
-                    Math.abs(removeLinesWeight) +
-                    Math.abs(rowTransitionWeight)+
-                    Math.abs(columnTransitionWeight)+
-                    Math.abs(holeWeight) +
-                    Math.abs(bumpWeight);
+        double norm = Math.sqrt(heightWeight*heightWeight +
+                removeLinesWeight*removeLinesWeight +
+                rowTransitionWeight*rowTransitionWeight+
+                columnTransitionWeight*columnTransitionWeight+
+                holeWeight*holeWeight +
+                bumpWeight*bumpWeight);
         heightWeight/=norm;
         removeLinesWeight/=norm;
         rowTransitionWeight/=norm;
