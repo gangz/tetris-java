@@ -2,30 +2,33 @@ package com.github.gangz.emergentdesign.demo.tetris.genetic;
 
 import com.github.gangz.emergentdesign.demo.tetris.ai.Parameter;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.IntStream;
 
+class Data implements Serializable {
+    Parameter parameter;
+    Integer fitness=0;
+    public Data(Parameter parameter) {
+        this.parameter = parameter;
+    }
+}
+
 public class GATuner {
     public static final int INIT_SIZE = 4000;
     public static final int SIZE = 1000;
-    public static final int MAX_BLOCKS = 1000;
+    public static final int MAX_BLOCKS = 500;
     public static final int TRY_TIMES = 5;
     public static final double MUTATION_VAL = 0.2;
     public static final double MUTATION_PROBABILITY = 0.05;
+    private static final String FILE_NAME = "tetris_parameter_data.dat";
 
     public static void main(String[] arg){
         new GATuner().tune();
     }
 
-    class Data{
-        Parameter parameter;
-        Integer fitness=0;
 
-        public Data(Parameter parameter) {
-            this.parameter = parameter;
-        }
-    }
     ArrayList<Data> population = new ArrayList<>();
 
     public Parameter tune() {
@@ -39,14 +42,41 @@ public class GATuner {
            3) randomly mutate to generate 5% of population
         4. goto step 2; exit after 100 generation ;
         * */
-        initPopulation();
+        if (!readFromDataFile()){
+            initPopulation();
+        }
         for (int generation=0;generation<MAX_BLOCKS;generation++){
             computeFitness();
             Data best = population.get(0);
             System.out.println("score:"+best.fitness+"param:"+best.parameter);
             produceOffSpring();
+            writeToDataFile();
         }
         return population.get(0).parameter;
+    }
+
+    private boolean readFromDataFile() {
+        try {
+            ObjectInputStream in = new ObjectInputStream(new
+                    FileInputStream(FILE_NAME));
+            population = (ArrayList<Data>)in.readObject();
+            in.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void writeToDataFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream(FILE_NAME,false);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(population);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("write to data failed.");
+        }
     }
 
     private void initPopulation() {
