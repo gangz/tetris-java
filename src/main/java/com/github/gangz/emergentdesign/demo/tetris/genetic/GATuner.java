@@ -86,7 +86,6 @@ public class GATuner {
                     Math.random(),
                     Math.random(),
                     Math.random(),
-                    Math.random(),
                     Math.random());
             population.add(new Data(parameter));});
     }
@@ -97,8 +96,8 @@ public class GATuner {
                 IntStream.range(0, TRY_TIMES).asLongStream().mapToInt(times->{
                     AutoGame game = new AutoGame(individual.parameter, MAX_BLOCKS);
                     game.play();
-                    return game.score;
-                }).sum()+10;//guarantee  fitness large than zero
+                    return game.verticalSize();
+                }).sum()+1;//guarantee  fitness large than zero
         });
         population.sort(new Comparator<Data>() {
             @Override
@@ -127,10 +126,9 @@ public class GATuner {
         return new Data(new Parameter(
                 first.fitness*first.parameter.heightWeight+second.fitness*second.parameter.heightWeight,
                 first.fitness*first.parameter.removeLinesWeight+second.fitness*second.parameter.removeLinesWeight,
-                first.fitness*first.parameter.rowTransitionWeight+second.fitness*second.parameter.rowTransitionWeight,
                 first.fitness*first.parameter.columnTransitionWeight+second.fitness*second.parameter.columnTransitionWeight,
-                first.fitness*first.parameter.holeWeight+second.fitness*second.parameter.holeWeight,
-                first.fitness*first.parameter.bumpWeight+second.fitness*second.parameter.bumpWeight
+                first.fitness*first.parameter.holeAddingWeight +second.fitness*second.parameter.holeAddingWeight,
+                first.fitness*first.parameter.bumpWellWeight +second.fitness*second.parameter.bumpWellWeight
         ));
     }
 
@@ -148,7 +146,7 @@ public class GATuner {
 
     private void mutation(Data v) {
         double value = Math.random()*2* MUTATION_VAL -MUTATION_VAL;
-        int  select = (int) Math.floor(6.0*Math.random());
+        int  select = (int) Math.floor(5.0*Math.random());
         switch (select){
             case 0:
                 v.parameter.heightWeight+=value;
@@ -157,16 +155,13 @@ public class GATuner {
                 v.parameter.removeLinesWeight+=value;
                 break;
             case 2:
-                v.parameter.rowTransitionWeight+=value;
-                break;
-            case 3:
                 v.parameter.columnTransitionWeight+=value;
                 break;
-            case 4:
-                v.parameter.holeWeight+=value;
+            case 3:
+                v.parameter.holeAddingWeight +=value;
                 break;
-            case 5:
-                v.parameter.bumpWeight+=value;
+            case 4:
+                v.parameter.bumpWellWeight +=value;
                 break;
         }
     }

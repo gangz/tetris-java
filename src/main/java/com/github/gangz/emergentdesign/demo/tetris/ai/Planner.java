@@ -1,8 +1,6 @@
 package com.github.gangz.emergentdesign.demo.tetris.ai;
 
 import com.github.gangz.emergentdesign.demo.tetris.controller.Block;
-import com.github.gangz.emergentdesign.demo.tetris.controller.CollisionDetector;
-import com.github.gangz.emergentdesign.demo.tetris.controller.Direction;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -56,13 +54,12 @@ public class Planner {
 
     private double evaluate(Block piledBlock, Block joinedBlock) {
         int eliminatedRows = joinedBlock.eliminate(horizonalSize);
-        ShapeFeature feature_current = new ShapeFeature(piledBlock.getCells(),horizonalSize);
-        ShapeFeature feature_new = new ShapeFeature(joinedBlock.getCells(),horizonalSize);
+        ShapeFeature currentFeature = new ShapeFeature(piledBlock.getCells(),horizonalSize);
+        ShapeFeature newFeature = new ShapeFeature(joinedBlock.getCells(),horizonalSize);
         return parameter.removeLinesWeight * eliminatedRows
-                -parameter.heightWeight*(joinedBlock.height()-piledBlock.height())
-                -parameter.rowTransitionWeight*(feature_new.rowTransitions())
-                -parameter.columnTransitionWeight* (feature_new.columnTransitions())
-                -parameter.holeWeight * (feature_new.holes()-feature_current.holes())
-                -parameter.bumpWeight*(feature_new.bumpiness()+feature_new.well());
+                -parameter.heightWeight*joinedBlock.height()
+                -parameter.columnTransitionWeight* newFeature.columnTransitions()
+                -parameter.holeAddingWeight * (newFeature.holes()-currentFeature.holes())
+                -parameter.bumpWellWeight *(newFeature.bumpiness()+newFeature.well());
     }
 }

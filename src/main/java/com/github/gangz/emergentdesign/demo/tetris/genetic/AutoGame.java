@@ -11,7 +11,6 @@ import java.util.Observer;
 
 public class AutoGame implements GameUI, Observer {
     Game game = null;
-    int score = 0;
     int blocks = 500;
     private Parameter parameter;
 
@@ -23,20 +22,17 @@ public class AutoGame implements GameUI, Observer {
     public static void main(String[] args){
         AutoGame game = new AutoGame(new Parameter(),500);
         game.play();
-        System.out.println(game.score);
     }
     @Override
     public void setController(Game game) {
     }
+
     @Override
     public void dataChanged() {
-        if (game!=null)
-            this.score = game.getScore();
     }
 
     @Override
     public void notifyGameOver() {
-        score = game.getScore();
         this.blocks=-1;
     }
 
@@ -54,5 +50,10 @@ public class AutoGame implements GameUI, Observer {
     public void update(Observable o, Object event) {
         if (event instanceof BlockCreatedEvent)
             this.blocks--;
+    }
+
+    public int verticalSize() {
+        int size = Game.VERTICAL_SIZE - game.getPiledBlock().height();
+        return size>0?size:0;
     }
 }
