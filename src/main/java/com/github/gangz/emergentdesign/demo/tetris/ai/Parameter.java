@@ -3,19 +3,19 @@ package com.github.gangz.emergentdesign.demo.tetris.ai;
 import java.io.Serializable;
 
 public class Parameter implements Serializable {
-    public double heightWeight = 0.018541897930859582;
-    public double removeLinesWeight  = 0.5073339640502378;
-    public double columnTransitionWeight = 0.29008357836920445 ;
-    public double holeAddingWeight = 0.8089926136397839;
-    public double bumpWellWeight = 0.05942120100017882;
+    public double heightWeight = 0.17112317836961635;
+    public double removeLinesWeight  = 0.45910616745101074;
+    public double holeCoverWeight = 0.0871102063425539 ;
+    public double holeAddingWeight = 0.8503525804686778;
+    public double bumpWellWeight = 0.19181858648380554;
 
     public Parameter(){
     }
     public Parameter(double heightWeight, double removeLinesWeight,
-                     double columnTransitionWeight, double holeAddingWeight, double bumpWeight){
+                     double holeCoverWeight, double holeAddingWeight, double bumpWeight){
         this.heightWeight = heightWeight;
         this.removeLinesWeight = removeLinesWeight;
-        this.columnTransitionWeight = columnTransitionWeight;
+        this.holeCoverWeight = holeCoverWeight;
         this.holeAddingWeight = holeAddingWeight;
         this.bumpWellWeight = bumpWeight;
         normalize();
@@ -24,12 +24,12 @@ public class Parameter implements Serializable {
     private void normalize() {
         double norm = Math.sqrt(heightWeight*heightWeight +
                 removeLinesWeight*removeLinesWeight +
-                columnTransitionWeight*columnTransitionWeight+
+                holeCoverWeight * holeCoverWeight +
                 holeAddingWeight * holeAddingWeight +
                 bumpWellWeight * bumpWellWeight);
         heightWeight/=norm;
         removeLinesWeight/=norm;
-        columnTransitionWeight/=norm;
+        holeCoverWeight /=norm;
         holeAddingWeight /=norm;
         bumpWellWeight /=norm;
     }
@@ -39,7 +39,7 @@ public class Parameter implements Serializable {
         return "Parameter{" +
                 "heightWeight=" + heightWeight +
                 ", removeLinesWeight=" + removeLinesWeight +
-                ", columnTransitionWeight=" + columnTransitionWeight +
+                ", holeCoverWeight=" + holeCoverWeight +
                 ", holeWeight=" + holeAddingWeight +
                 ", bumpWeight=" + bumpWellWeight +
                 '}';

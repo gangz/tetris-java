@@ -2,8 +2,11 @@ package com.github.gangz.emergentdesign.demo.tetris.genetic;
 
 import com.github.gangz.emergentdesign.demo.tetris.ai.AIPlayer;
 import com.github.gangz.emergentdesign.demo.tetris.ai.Parameter;
+import com.github.gangz.emergentdesign.demo.tetris.controller.Block;
 import com.github.gangz.emergentdesign.demo.tetris.controller.BlockCreatedEvent;
+import com.github.gangz.emergentdesign.demo.tetris.controller.Cell;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
+import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 
 import java.util.Observable;
@@ -38,6 +41,7 @@ public class AutoGame implements GameUI, Observer {
 
     public void play(){
         game = new Game(this);
+        game.getPiledBlock().join(createRandomBlockWithHole());
         game.addObserver(this);
         AIPlayer player = new AIPlayer(parameter,game);
         player.start();
@@ -46,14 +50,30 @@ public class AutoGame implements GameUI, Observer {
         }
     }
 
+    private Block createRandomBlockWithHole() {
+        Shape shape = new Shape();
+        int lines = 8;
+        for (int x=0;x<Game.HORIZONAL_SIZE;x++){
+            for (int y=0;y<lines;y++){
+                if (Math.random()>0.2){
+                    shape.add(new Cell(x,y));
+                }
+            }
+        }
+        shape.eliminate(Game.HORIZONAL_SIZE);
+        return  new Block(0,Game.VERTICAL_SIZE-lines,shape);
+    }
+
     @Override
     public void update(Observable o, Object event) {
         if (event instanceof BlockCreatedEvent)
             this.blocks--;
     }
 
-    public int verticalSize() {
-        int size = Game.VERTICAL_SIZE - game.getPiledBlock().height();
-        return size>0?size:0;
+    public int score() {
+        //if game is over, give penalty;
+        if (this.blocks<0)
+            return game.getScore()/2;
+        return game.getScore();
     }
 }

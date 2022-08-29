@@ -58,7 +58,7 @@ public class Planner {
         ShapeFeature newFeature = new ShapeFeature(joinedBlock.getCells(),horizonalSize);
         return parameter.removeLinesWeight * eliminatedRows
                 -parameter.heightWeight*joinedBlock.height()
-                -parameter.columnTransitionWeight* newFeature.columnTransitions()
+                -parameter.holeCoverWeight * newFeature.holeCover()
                 -parameter.holeAddingWeight * (newFeature.holes()-currentFeature.holes())
                 -parameter.bumpWellWeight *(newFeature.bumpiness()+newFeature.well());
     }

@@ -23,6 +23,7 @@ SOFTWARE.
  */
 package com.github.gangz.emergentdesign.demo.tetris.controller;
 
+import com.github.gangz.emergentdesign.demo.tetris.shape.Shape;
 import com.github.gangz.emergentdesign.demo.tetris.shape.ShapeFactory;
 import com.github.gangz.emergentdesign.demo.tetris.ui.GameUI;
 

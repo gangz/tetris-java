@@ -18,7 +18,7 @@ class Data implements Serializable {
 public class GATuner {
     public static final int INIT_SIZE = 4000;
     public static final int SIZE = 1000;
-    public static final int MAX_BLOCKS = 500;
+    public static final int MAX_BLOCKS = 3000;
     public static final int TRY_TIMES = 5;
     public static final double MUTATION_VAL = 0.2;
     public static final double MUTATION_PROBABILITY = 0.05;
@@ -96,7 +96,7 @@ public class GATuner {
                 IntStream.range(0, TRY_TIMES).asLongStream().mapToInt(times->{
                     AutoGame game = new AutoGame(individual.parameter, MAX_BLOCKS);
                     game.play();
-                    return game.verticalSize();
+                    return game.score();
                 }).sum()+1;//guarantee  fitness large than zero
         });
         population.sort(new Comparator<Data>() {
@@ -126,7 +126,7 @@ public class GATuner {
         return new Data(new Parameter(
                 first.fitness*first.parameter.heightWeight+second.fitness*second.parameter.heightWeight,
                 first.fitness*first.parameter.removeLinesWeight+second.fitness*second.parameter.removeLinesWeight,
-                first.fitness*first.parameter.columnTransitionWeight+second.fitness*second.parameter.columnTransitionWeight,
+                first.fitness*first.parameter.holeCoverWeight +second.fitness*second.parameter.holeCoverWeight,
                 first.fitness*first.parameter.holeAddingWeight +second.fitness*second.parameter.holeAddingWeight,
                 first.fitness*first.parameter.bumpWellWeight +second.fitness*second.parameter.bumpWellWeight
         ));
@@ -155,7 +155,7 @@ public class GATuner {
                 v.parameter.removeLinesWeight+=value;
                 break;
             case 2:
-                v.parameter.columnTransitionWeight+=value;
+                v.parameter.holeCoverWeight +=value;
                 break;
             case 3:
                 v.parameter.holeAddingWeight +=value;

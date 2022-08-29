@@ -41,6 +41,27 @@ public class ShapeFeature {
         return value;
     }
 
+    public int holeCover(){
+        int value = 0;
+        for (int x=0;x<width;x++){
+            for (int y=height-1;y>=0;y--){
+                if (data[x][y]==0){
+                    value +=countAllCellsAbove(x,y);
+                }
+            }
+        }
+        return value;
+    }
+
+    private int countAllCellsAbove(int x, int y) {
+        int value = 0;
+        for (int i=0;i<y;i++){
+            if (data[x][i]==1)
+                value++;
+        }
+        return value;
+    }
+
     public int holes() {
         int holes = 0;
         for (int x=0;x<width;x++){
