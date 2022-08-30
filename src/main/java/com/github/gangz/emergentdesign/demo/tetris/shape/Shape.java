@@ -89,12 +89,14 @@ public class Shape{
     }
 
     public int height() {
+        if (shape.size()==0) return 0;
         Optional<Cell> max = shape.stream().max(Comparator.comparingInt(Cell::getY));
         Optional<Cell> min = shape.stream().min(Comparator.comparingInt(Cell::getY));
         return max.get().y-min.get().y+1;
     }
 
     public int width() {
+        if (shape.size()==0) return 0;
         Optional<Cell> max = shape.stream().max(Comparator.comparingInt(Cell::getX));
         Optional<Cell> min = shape.stream().min(Comparator.comparingInt(Cell::getX));
         return max.get().x-min.get().x+1;

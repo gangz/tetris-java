@@ -60,8 +60,8 @@ public class AutoGame implements GameUI, Observer {
                 }
             }
         }
-        shape.eliminate(Game.HORIZONAL_SIZE);
-        return  new Block(0,Game.VERTICAL_SIZE-lines,shape);
+        int elimimateLines = shape.eliminate(Game.HORIZONAL_SIZE);
+        return  new Block(0,Game.VERTICAL_SIZE-lines+elimimateLines,shape);
     }
 
     @Override

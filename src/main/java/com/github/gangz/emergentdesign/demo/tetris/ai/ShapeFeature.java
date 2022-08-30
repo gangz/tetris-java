@@ -6,13 +6,14 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ShapeFeature {
-    int[][] data;
+    int[][] data = new int[0][0];
 
-    int height;
-    int width;
+    int height = 0;
+    int width = 0;
 
     public ShapeFeature(List<Cell> shape, int width){
-        convertToMatrix(shape,width);
+        if (shape.size()>0)
+            convertToMatrix(shape,width);
     }
 
     private void convertToMatrix(List<Cell> cells, int width) {
@@ -23,9 +24,6 @@ public class ShapeFeature {
         data = new int[width][height];
         cells.forEach(cell->{cell.y -=minY;});
         cells.forEach(cell->{
-            if (cell.x>width-1){
-                System.out.println("w"+width+","+cell.x);
-            }
             data[cell.x][cell.y]=1;
         });
     }

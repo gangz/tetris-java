@@ -3,11 +3,11 @@ package com.github.gangz.emergentdesign.demo.tetris.ai;
 import java.io.Serializable;
 
 public class Parameter implements Serializable {
-    public double heightWeight = 0.17112317836961635;
-    public double removeLinesWeight  = 0.45910616745101074;
-    public double holeCoverWeight = 0.0871102063425539 ;
-    public double holeAddingWeight = 0.8503525804686778;
-    public double bumpWellWeight = 0.19181858648380554;
+    public double heightWeight = 0.09055176136518844;
+    public double removeLinesWeight  = 0.5647313393824509;
+    public double holeCoverWeight = 0.03994584977060058 ;
+    public double holeAddingWeight = 0.8012332728631142;
+    public double bumpWellWeight = 0.1711971506075142;
 
     public Parameter(){
     }
