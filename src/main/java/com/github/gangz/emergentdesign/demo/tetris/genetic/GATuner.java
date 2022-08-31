@@ -20,8 +20,8 @@ public class GATuner {
     public static final int SIZE = 1000;
     public static final int MAX_BLOCKS = 3000;
     public static final int TRY_TIMES = 5;
-    public static final double MUTATION_VAL = 0.2;
-    public static final double MUTATION_PROBABILITY = 0.05;
+    public static final double MUTATION_VAL = 0.5;
+    public static final double MUTATION_PROBABILITY = 0.1;
     private static final String FILE_NAME = "tetris_parameter_data.dat";
 
     public static void main(String[] arg){
@@ -145,24 +145,32 @@ public class GATuner {
     }
 
     private void mutation(Data v) {
-        double value = Math.random()*2* MUTATION_VAL -MUTATION_VAL;
+        ;
         int  select = (int) Math.floor(5.0*Math.random());
         switch (select){
             case 0:
-                v.parameter.heightWeight+=value;
+                v.parameter.heightWeight+=mutationValue(v.parameter.heightWeight);
                 break;
             case 1:
-                v.parameter.removeLinesWeight+=value;
+                v.parameter.removeLinesWeight+=mutationValue(v.parameter.removeLinesWeight);
                 break;
             case 2:
-                v.parameter.holeCoverWeight +=value;
+                v.parameter.holeCoverWeight +=mutationValue(v.parameter.holeCoverWeight);
                 break;
             case 3:
-                v.parameter.holeAddingWeight +=value;
+                v.parameter.holeAddingWeight +=mutationValue(v.parameter.holeAddingWeight);
                 break;
             case 4:
-                v.parameter.bumpWellWeight +=value;
+                v.parameter.bumpWellWeight +=mutationValue(v.parameter.bumpWellWeight);
                 break;
         }
+    }
+
+    private double mutationValue(double originValue) {
+        double value = Math.random()*2* MUTATION_VAL -MUTATION_VAL;
+        if (originValue+value<0){
+            return 0-originValue*Math.random();
+        }
+        return value;
     }
 }
