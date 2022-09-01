@@ -23,6 +23,7 @@ SOFTWARE.
  */
 package com.github.gangz.emergentdesign.demo.tetris.ui;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.gangz.emergentdesign.demo.tetris.ai.AIPlayer;
 import com.github.gangz.emergentdesign.demo.tetris.ai.Parameter;
 import com.github.gangz.emergentdesign.demo.tetris.controller.Game;
@@ -33,6 +34,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class SwingGameUI extends JFrame implements GameUI, KeyListener {
@@ -129,10 +132,21 @@ public class SwingGameUI extends JFrame implements GameUI, KeyListener {
         command.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (aiPlayer==null)
-                    aiPlayer = new AIPlayer(new Parameter(), controller);
+                if (aiPlayer==null) {
+                    aiPlayer = new AIPlayer(readAIPlayerParameter(), controller);
+                }
                 aiPlayer.pauseToogle();
                 releaseFocus();
+            }
+
+            private Parameter readAIPlayerParameter() {
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                   return mapper.readValue(new File("./ai_parameters.json"), Parameter.class);
+                } catch (IOException e) {
+                    //use default value
+                }
+                return new Parameter();
             }
         });
         command.setBounds(commandButton.getX(), commandButton.getY()+commandButton.getHeight()+40,
