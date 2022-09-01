@@ -1,8 +1,11 @@
 package com.github.gangz.emergentdesign.demo.tetris.genetic;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.gangz.emergentdesign.demo.tetris.ai.Parameter;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.IntStream;
@@ -15,19 +18,40 @@ class Data implements Serializable {
     }
 }
 
+class GAParameter{
+    public int initSize = 4000;
+    public int size = 500;
+    public int maxBlocks = 3000;
+    public int tryTimes = 5;
+    public double mutationValue = 0.5;
+    public double mutationProbability = 0.1;
+    GAParameter(){
+
+    }
+}
+
 public class GATuner {
-    public static final int INIT_SIZE = 4000;
-    public static final int SIZE = 1000;
-    public static final int MAX_BLOCKS = 3000;
-    public static final int TRY_TIMES = 5;
-    public static final double MUTATION_VAL = 0.5;
-    public static final double MUTATION_PROBABILITY = 0.1;
+
     private static final String FILE_NAME = "tetris_parameter_data.dat";
+    GAParameter parameter;
 
     public static void main(String[] arg){
         new GATuner().tune();
     }
 
+
+    public GATuner(){
+        readGAParameters();
+    }
+
+    private void readGAParameters() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            parameter = mapper.readValue(new File("./ga_parameters.json"), GAParameter.class);
+        } catch (IOException e) {
+            //use default value
+        }
+    }
 
     ArrayList<Data> population = new ArrayList<>();
 
@@ -45,7 +69,8 @@ public class GATuner {
         if (!readFromDataFile()){
             initPopulation();
         }
-        for (int generation=0;generation<MAX_BLOCKS;generation++){
+
+        for (int generation=0;generation<parameter.maxBlocks;generation++){
             computeFitness();
             Data best = population.get(0);
             System.out.println("score:"+best.fitness+"param:"+best.parameter);
@@ -81,7 +106,7 @@ public class GATuner {
 
     private void initPopulation() {
         population.clear();
-        IntStream.range(0, INIT_SIZE).forEach(i->{
+        IntStream.range(0, parameter.initSize).forEach(i->{
             Parameter parameter = new Parameter(Math.random(),
                     Math.random(),
                     Math.random(),
@@ -93,8 +118,8 @@ public class GATuner {
     private void computeFitness() {
         population.parallelStream().forEach(individual->{
             individual.fitness =
-                IntStream.range(0, TRY_TIMES).asLongStream().mapToInt(times->{
-                    AutoGame game = new AutoGame(individual.parameter, MAX_BLOCKS);
+                IntStream.range(0, parameter.tryTimes).asLongStream().mapToInt(times->{
+                    AutoGame game = new AutoGame(individual.parameter, parameter.maxBlocks);
                     game.play();
                     return game.score();
                 }).sum()+1;//guarantee  fitness large than zero
@@ -109,10 +134,10 @@ public class GATuner {
 
     private void produceOffSpring() {
         ArrayList<Data> next = new ArrayList<>();
-        next.addAll(population.subList(0, (int) (SIZE*0.2)));
-        for (int i=0;i<SIZE*0.8;i++){
+        next.addAll(population.subList(0, (int) (parameter.size*0.2)));
+        for (int i=0;i<parameter.size*0.8;i++){
             Data individual=crossOver();
-            if (Math.random()< MUTATION_PROBABILITY)
+            if (Math.random()< parameter.mutationProbability)
                 mutation(individual);
             next.add(individual);
         }
@@ -145,7 +170,6 @@ public class GATuner {
     }
 
     private void mutation(Data v) {
-        ;
         int  select = (int) Math.floor(5.0*Math.random());
         switch (select){
             case 0:
@@ -167,7 +191,7 @@ public class GATuner {
     }
 
     private double mutationValue(double originValue) {
-        double value = Math.random()*2* MUTATION_VAL -MUTATION_VAL;
+        double value = Math.random()*2* parameter.mutationValue -parameter.mutationValue;
         if (originValue+value<0){
             return 0-originValue*Math.random();
         }
